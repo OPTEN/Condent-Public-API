@@ -4,7 +4,7 @@ nav_order: 2
 ---
 
 {: .warning }
-> ⚠️ **Work in Progress**: Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
+Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
 
 ## Übersicht
 

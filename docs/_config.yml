@@ -5,7 +5,7 @@ remote_theme: just-the-docs/just-the-docs
 
 just_the_docs:
   color_scheme: dark
-  favicon_ico: /assets/favicon.ico
+  favicon_ico: /assets/images/favicon.ico
 
 # Exclude files not meant for the generated site
 exclude:

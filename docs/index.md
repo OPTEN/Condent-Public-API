@@ -40,7 +40,7 @@ Falls Ihre Software z.B. eine auf dem Windows installierte Software ist, müssen
 ---
 
 {: .new }
-> 📋 **Änderungen: 27.02.26**
+Änderungen: 27.02.26
 
 ## Änderungen am Adressmodell
 
