@@ -4,7 +4,7 @@ description: Öffentliche API-Dokumentation für die Integration von Dentist-App
 remote_theme: just-the-docs/just-the-docs
 
 color_scheme: dark
-favicon_ico: /assets/images/favicon.ico
+favicon_ico: "/assets/images/favicon.ico"
 
 callouts:
   warning:
