@@ -10,7 +10,7 @@ Dokumente wie **PDF** oder **XML** (Suva/Sumex1, VDDS) werden ebenfalls mitgelie
 
 ## Authentifizierung
 
-Siehe [hier](https://dev.azure.com/optenag/Condent-Public-API/_wiki/wikis/Condent-Public-API.wiki/1269/API-Anbindung?anchor=authentifizierung).
+Siehe [hier](./index.md#authentifizierung).
 
 ## Konzept
 

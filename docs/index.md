@@ -27,7 +27,7 @@ Die Signatur setzt sich wie folgt zusammen:
 `apiKey` entspricht dem Header `X-CONDENT-API-KEY`
 `body` entspricht dem Request Body z.B. `"{ patient: { firstName: 'XXXXX' } }"`
 
-Beispiele finden sie unter [examples](https://dev.azure.com/optenag/_git/Condent-Public-API?path=/examples).
+Beispiele finden sie unter [examples](../examples).
 
 Wichtig ist, dass `timestamp`nicht weniger oder mehr als 15 Sekunden Unterschied zur Serverzeit von Condent hat.
 Falls Ihre Software z.B. eine auf dem Windows installierte Software ist, müssen Sie berücksichtigen, dass der Benutzer die Uhrzeit auf dem Computer (fälschlicherweise) ändern kann. Sie können die aktuelle Serverzeit von Condent [abfragen](#Serverzeit).
@@ -153,7 +153,7 @@ Aktuell gelten folgende Beschränkungen:
 
 (Sofern möglich, werden wir Dateien wie z.B. Bilder komprimieren.)
 
-Dateien müssen einzeln geschickt werden, dies um Timeouts zu verhindern (wenn z.B. sehr viele, sehr grosse Dateien geschickt werden). Wir empfehlen, dass die Requests parallel geschickt werden (ein Beispiel in C# finden Sie [hier](https://dev.azure.com/optenag/Condent-Public-API/_git/Condent-Public-API?path=/examples/Opten.Condent.DentistApp/CondentAppForm.cs&version=GBmain&line=126&lineEnd=127&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents)).
+Dateien müssen einzeln geschickt werden, dies um Timeouts zu verhindern (wenn z.B. sehr viele, sehr grosse Dateien geschickt werden). Wir empfehlen, dass die Requests parallel geschickt werden (ein Beispiel in C# finden Sie [hier](../examples/Opten.Condent.DentistApp/CondentAppForm.cs)).
 
 Wenn es sehr viele Dateien sind, kann auch ein ZIP-File geschickt werden.
 
