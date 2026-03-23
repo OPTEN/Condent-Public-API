@@ -7,6 +7,14 @@ just_the_docs:
   color_scheme: dark
   favicon_ico: /assets/images/favicon.ico
 
+callouts:
+  warning:
+    title: Warnung
+    color: yellow
+  new:
+    title: Neu
+    color: green
+
 # Exclude files not meant for the generated site
 exclude:
   - README.md
