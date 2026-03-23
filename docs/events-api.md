@@ -3,9 +3,8 @@ title: Events API
 nav_order: 2
 ---
 
-> &nbsp;
+{: .warning }
 > ⚠️ **Work in Progress**: Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
-> &nbsp;
 
 ## Übersicht
 
