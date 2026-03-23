@@ -1,3 +1,8 @@
+---
+title: API-Anbindung
+nav_order: 1
+---
+
 # Einleitung
 
 REST API Endpoint:
@@ -27,10 +32,10 @@ Die Signatur setzt sich wie folgt zusammen:
 `apiKey` entspricht dem Header `X-CONDENT-API-KEY`
 `body` entspricht dem Request Body z.B. `"{ patient: { firstName: 'XXXXX' } }"`
 
-Beispiele finden sie unter [examples](../examples).
+Beispiele finden sie unter [examples](https://github.com/OPTEN/Condent-Public-API/tree/main/examples).
 
 Wichtig ist, dass `timestamp`nicht weniger oder mehr als 15 Sekunden Unterschied zur Serverzeit von Condent hat.
-Falls Ihre Software z.B. eine auf dem Windows installierte Software ist, müssen Sie berücksichtigen, dass der Benutzer die Uhrzeit auf dem Computer (fälschlicherweise) ändern kann. Sie können die aktuelle Serverzeit von Condent [abfragen](#Serverzeit).
+Falls Ihre Software z.B. eine auf dem Windows installierte Software ist, müssen Sie berücksichtigen, dass der Benutzer die Uhrzeit auf dem Computer (fälschlicherweise) ändern kann. Sie können die aktuelle Serverzeit von Condent [abfragen](#serverzeit).
 
 ---
 
@@ -109,7 +114,7 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 | Parameter   | Typ         | Kommentar |
 | ----------- | ----------- | ----------- |
 | url       | string      | URL für die Erfassung des Auftrags auf Condent       |
-| uploadToken       | string      | [Token um Dateien zu hochzuladen](#Dateien-hochladen)       |
+| uploadToken       | string      | [Token um Dateien zu hochzuladen](#dateien-hochladen)       |
 | warnings       | string array     | Die Warnungen sind für die Entwickler:innen gedacht. Diese Warnungen weisen z.B. darauf hin, dass die gesendete Telefonnummer im falschen Format ist (z.B. wurde 076 123 44 55 statt +41761234455 gesendet). Der Patient resp. Auftrag kann trotz Warnungen erfasst werden.      |
 
 #### Request Beispiel
@@ -145,7 +150,7 @@ Content-Type:  application/json
 
 ## Dateien hochladen
 
-Sie müssen zuerst eine [Order](#Patient-mit-oder-ohne-Auftragsdaten-an-Condent-schicken) erstellen, um Dateien hochzuladen. Den `UploadToken` erhalten Sie im Response der Order.
+Sie müssen zuerst eine [Order](#patient-mit-oder-ohne-auftragsdaten-an-condent-schicken) erstellen, um Dateien hochzuladen. Den `UploadToken` erhalten Sie im Response der Order.
 
 Aktuell gelten folgende Beschränkungen:
 - Grösse bis zu maximal 100 MB
@@ -153,7 +158,7 @@ Aktuell gelten folgende Beschränkungen:
 
 (Sofern möglich, werden wir Dateien wie z.B. Bilder komprimieren.)
 
-Dateien müssen einzeln geschickt werden, dies um Timeouts zu verhindern (wenn z.B. sehr viele, sehr grosse Dateien geschickt werden). Wir empfehlen, dass die Requests parallel geschickt werden (ein Beispiel in C# finden Sie [hier](../examples/Opten.Condent.DentistApp/CondentAppForm.cs)).
+Dateien müssen einzeln geschickt werden, dies um Timeouts zu verhindern (wenn z.B. sehr viele, sehr grosse Dateien geschickt werden). Wir empfehlen, dass die Requests parallel geschickt werden (ein Beispiel in C# finden Sie [hier](https://github.com/OPTEN/Condent-Public-API/blob/main/examples/Opten.Condent.DentistApp/CondentAppForm.cs)).
 
 Wenn es sehr viele Dateien sind, kann auch ein ZIP-File geschickt werden.
 

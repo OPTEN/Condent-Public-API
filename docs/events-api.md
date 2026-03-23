@@ -1,3 +1,8 @@
+---
+title: Events API
+nav_order: 2
+---
+
 > &nbsp;
 > ⚠️ **Work in Progress**: Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
 > &nbsp;

@@ -2,6 +2,10 @@
 
 Dieses Repository enthält die öffentliche Dokumentation und Beispiele zur Integration der **Condent API**.
 
+## Dokumentationsseite
+
+📖 **https://opten.github.io/Condent-Public-API/**
+
 ## Dokumentation
 
 | Dokument | Beschreibung |
