@@ -72,14 +72,14 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 
 `POST /v1/order`
 
-#### Request Parameter
+#### Request-Parameter
 
 | Parameter   | Pflicht     | Typ         | Kommentar |
 | ----------- | ----------- | ----------- | ----------- |
 | title       | Nein        | string      | Der Titel des Auftrags       |
 | costUnitType   | Nein        | string        | Kostenträger des Auftrags       |
 | insurances   | Nein        | string array        | Versicherungen des Patienten        |
-| color | Nein        | string | Farbe z.B. für die Krone oder Schiene        |
+| color | Nein        | string | Farbe, z.B. für Krone oder Schiene        |
 | description | Nein        | string        | Beschreibung des Auftrags |
 | scanSentVia | Nein        | string | Scan versendet via |
 | trackingNumber | Nein        | string | Trackingnummer (z.B. Post) des Auftrags |
@@ -108,7 +108,7 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 
 ---
 
-#### Response Parameter
+#### Response-Parameter
 
 | Parameter   | Typ         | Kommentar |
 | ----------- | ----------- | ----------- |

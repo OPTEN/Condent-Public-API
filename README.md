@@ -10,8 +10,9 @@ Dieses Repository enthält die öffentliche Dokumentation und Beispiele zur Inte
 
 | Dokument | Beschreibung |
 | --- | --- |
-| [API-Anbindung](docs/index.md) | Authentifizierung, Aufträge erstellen, Dateien hochladen, Serverzeit |
-| [Events API](docs/events-api.md) | Eventbasierte Abfrage von Änderungen an Leistungen (Work in Progress) |
+| [API-Anbindung](docs/index.md) | Grundlagen zur Integration: Authentifizierung, Aufträge erstellen, Dateien hochladen und Serverzeit abrufen |
+| [Billing Events API](docs/billing-events-api.md) | Eventbasierte Schnittstelle zur Abfrage von Änderungen an Leistungen |
+| [Billing Export API](docs/billing-export-api.md) | Schnittstelle zum Export von Leistungsdaten für Abrechnung und Weiterverarbeitung in Drittsystemen |
 
 ## Beispiele
 

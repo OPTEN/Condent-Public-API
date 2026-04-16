@@ -1,5 +1,5 @@
 ---
-title: Events API
+title: Billing Events API
 nav_order: 2
 ---
 
@@ -8,7 +8,7 @@ Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
 
 ## Übersicht
 
-Die neue eventbasierte API ermöglicht es, Änderungen an Leistungen (z. B. Lieferschein, Kostenvoranschlag, Rechnung usw.) effizient abzufragen. Anstatt regelmässig alle Daten vollständig zu synchronisieren, können nur die Änderungen seit der letzten Abfrage geladen werden.
+Die neue eventbasierte API ermöglicht es, Änderungen an Leistungen (z.B. Lieferschein, Kostenvoranschlag, Rechnung usw.) effizient abzufragen. Anstatt regelmässig alle Daten vollständig zu synchronisieren, können nur die Änderungen seit der letzten Abfrage geladen werden.
 
 Dokumente wie **PDF** oder **XML** (Suva/Sumex1, VDDS) werden ebenfalls mitgeliefert.
 
@@ -28,7 +28,7 @@ Das Event-System arbeitet mit einem **Cursor-Prinzip**:
 
 `nextCursor` muss vom Client gespeichert und bei der nächsten Anfrage wieder mitgesendet werden.
 
-Der Cursor kann als **Base64-codierter String** zurückgegeben werden. In diesem Fall können Zeichen wie `=` enthalten sein. Da solche Zeichen in Query-Parametern speziell behandelt werden, sollte der Cursor **URL-encoded** übertragen werden (z. B. `=` → `%3D`).
+Der Cursor kann als **Base64-codierter String** zurückgegeben werden. In diesem Fall können Zeichen wie `=` enthalten sein. Da solche Zeichen in Query-Parametern speziell behandelt werden, sollte der Cursor **URL-encoded** übertragen werden (z.B. `=` → `%3D`).
 
 Beispiel:
 
@@ -38,7 +38,7 @@ GET /v2/billing/event?cursor=eyJwb3MiOjEyMzQ1fQ%3D%3D
 
 Viele HTTP-Clients übernehmen dieses Encoding automatisch. Wird die URL jedoch manuell zusammengesetzt, muss der `cursor` korrekt encoded werden.
 
-## Endpunkte
+## Endpunkt
 
 ```http
 GET /v2/billing/event
@@ -51,9 +51,9 @@ Swagger: https://api-dev.condent.app/swagger/index.html
 | Parameter | Typ | Pflicht | Beschreibung |
 |-----------|-----|---------|--------------|
 | `cursor` | string | Nein | Zuletzt empfangener `nextCursor`. Ohne diesen Parameter werden die ersten verfügbaren Events gemäss `limit` zurückgegeben. |
-| `limit` | int | Nein | Maximale Anzahl Events pro Anfrage (Standard: 50, Maximum: 200) |
+| `limit` | int | Nein | Maximale Anzahl Events pro Anfrage (Standard: 50, Maximum: 200). |
 
-## Antwort-Struktur
+## Antwortstruktur
 
 ```json
 {
