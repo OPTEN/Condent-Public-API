@@ -153,8 +153,8 @@ Diese Methode wird nicht mehr empfohlen. Bitte verwenden Sie Sign V2 für alle n
 2. Diesen Prehash mit HMAC SHA256 und dem `SecretKey` signieren
 3. Diese Signatur zu base64 encoden
 
-`timestamp` entspricht dem Header `X-CONDENT-TIMESTAMP`
-`apiKey` entspricht dem Header `X-CONDENT-API-KEY`
+`timestamp` entspricht dem Header `X-CONDENT-TIMESTAMP`  
+`apiKey` entspricht dem Header `X-CONDENT-API-KEY`  
 `body` entspricht dem Request Body z.B. `"{ patient: { firstName: 'XXXXX' } }"`
 
 ---
