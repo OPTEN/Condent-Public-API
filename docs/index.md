@@ -48,7 +48,7 @@ body
 
 **Details:**
 - `apiKey`: Der API-Schlüssel (identisch mit `X-CONDENT-API-KEY`)
-- `method`: HTTP-Methode in **GROSSBUCHSTABEN** (GET, POST, PUT, PATCH, DELETE)
+- `method`: HTTP-Methode in **Grossbuchstaben** (GET, POST, PUT, PATCH, DELETE)
 - `scheme`: Protokoll in **Kleinbuchstaben** (https, http)
 - `host`: Domain in **Kleinbuchstaben** (api.condent.app)
 - `path`: Pfad in **Kleinbuchstaben** (/v1/order, /v2/billing/event)
