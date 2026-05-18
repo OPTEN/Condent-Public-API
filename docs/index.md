@@ -56,7 +56,7 @@ body
 - `timestamp`: Der Unix-Timestamp in Millisekunden (identisch mit `X-CONDENT-TIMESTAMP`)
 - `body`: Request Body als String (leer bei GET-Requests, Dateiname bei File-Uploads)
 
-{: .important }
+{: .highlight }
 Scheme, host und path müssen in **Kleinbuchstaben** sein! Method ist in **Grossbuchstaben**. Querystring bleibt in **Original-Schreibweise**.
 
 {: .note }

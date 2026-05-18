@@ -31,7 +31,7 @@ timestamp
 body
 ```
 
-{: .important }
+{: .highlight }
 Scheme, host und path müssen in **Kleinbuchstaben** sein! Method ist in **Grossbuchstaben**. Querystring bleibt in **Original-Schreibweise**.
 
 {: .note }
