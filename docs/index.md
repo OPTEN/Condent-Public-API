@@ -132,6 +132,11 @@ api.condent.app
 scan.stl
 ```
 
+Weitere Beispiele finden sie unter [examples](https://github.com/OPTEN/Condent-Public-API/tree/main/examples).
+
+Wichtig ist, dass `timestamp`nicht weniger oder mehr als 15 Sekunden Unterschied zur Serverzeit von Condent hat.
+Falls Ihre Software z.B. eine auf dem Windows installierte Software ist, müssen Sie berücksichtigen, dass der Benutzer die Uhrzeit auf dem Computer (fälschlicherweise) ändern kann. Sie können die aktuelle Serverzeit von Condent [abfragen](#serverzeit).
+
 ---
 
 ### X-CONDENT-SIGN generieren (Sign V1 - Legacy)
@@ -141,19 +146,13 @@ scan.stl
 
 **Sign V1** verwendet eine einfachere Signatur-Methode:
 
-1. Prehash aus`timestamp` + `apiKey` + `body` erstellen
+1. Prehash aus `timestamp` + `apiKey` + `body` erstellen
 2. Diesen Prehash mit HMAC SHA256 und dem `SecretKey` signieren
 3. Diese Signatur zu base64 encoden
 
 `timestamp` entspricht dem Header `X-CONDENT-TIMESTAMP`
 `apiKey` entspricht dem Header `X-CONDENT-API-KEY`
 `body` entspricht dem Request Body z.B. `"{ patient: { firstName: 'XXXXX' } }"`
-```
-
-Beispiele finden sie unter [examples](https://github.com/OPTEN/Condent-Public-API/tree/main/examples).
-
-Wichtig ist, dass `timestamp`nicht weniger oder mehr als 15 Sekunden Unterschied zur Serverzeit von Condent hat.
-Falls Ihre Software z.B. eine auf dem Windows installierte Software ist, müssen Sie berücksichtigen, dass der Benutzer die Uhrzeit auf dem Computer (fälschlicherweise) ändern kann. Sie können die aktuelle Serverzeit von Condent [abfragen](#serverzeit).
 
 ---
 
