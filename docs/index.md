@@ -56,8 +56,11 @@ body
 - `timestamp`: Der Unix-Timestamp in Millisekunden (identisch mit `X-CONDENT-TIMESTAMP`)
 - `body`: Request Body als String (leer bei GET-Requests, Dateiname bei File-Uploads)
 
-{: .warning }
-**Wichtig:** Scheme, host und path müssen in **Kleinbuchstaben** sein! Method ist in GROSSBUCHSTABEN. Querystring bleibt in **Original-Schreibweise**.
+{: .important }
+Scheme, host und path müssen in **Kleinbuchstaben** sein! Method ist in **Grossbuchstaben**. Querystring bleibt in **Original-Schreibweise**.
+
+{: .note }
+Auch **leere Strings** (z.B. bei fehlendem querystring oder body) müssen im `sign` String enthalten sein.
 
 #### Beispiele für Sign String (Sign V2)
 
@@ -142,7 +145,7 @@ Falls Ihre Software z.B. eine auf dem Windows installierte Software ist, müssen
 ### X-CONDENT-SIGN generieren (Sign V1 - Legacy)
 
 {: .warning }
-**Veraltet:** Diese Methode wird nicht mehr empfohlen. Bitte verwenden Sie Sign V2 für alle neuen Implementierungen.
+Diese Methode wird nicht mehr empfohlen. Bitte verwenden Sie Sign V2 für alle neuen Implementierungen.
 
 **Sign V1** verwendet eine einfachere Signatur-Methode:
 

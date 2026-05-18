@@ -10,9 +10,15 @@ callouts:
   warning:
     title: Warnung
     color: yellow
+  important:
+    title: Wichtig
+    color: orange
   new:
     title: Neu
     color: green
+  note:
+    title: Hinweis
+    color: blue
 
 # Exclude files not meant for the generated site
 exclude:

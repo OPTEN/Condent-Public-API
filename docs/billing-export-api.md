@@ -31,8 +31,11 @@ timestamp
 body
 ```
 
-{: .warning }
-Die URL-Komponenten (scheme, host, path) müssen in **Kleinbuchstaben** konvertiert werden! Der querystring bleibt in **Original-Schreibweise**.
+{: .important }
+Scheme, host und path müssen in **Kleinbuchstaben** sein! Method ist in **Grossbuchstaben**. Querystring bleibt in **Original-Schreibweise**.
+
+{: .note }
+Auch **leere Strings** (z.B. bei fehlendem querystring oder body) müssen im `sign` String enthalten sein.
 
 Details und Beispiele finden Sie in der [Authentifizierungs-Dokumentation](./index.md#x-condent-sign-generieren-sign-v2).
 
