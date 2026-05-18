@@ -12,7 +12,7 @@ callouts:
     color: yellow
   important:
     title: Wichtig
-    color: orange
+    color: yellow
   new:
     title: Neu
     color: green
