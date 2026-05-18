@@ -9,7 +9,7 @@ favicon_ico: "/assets/images/favicon.ico"
 callouts:
   highlight:
     title: Wichtig
-    color: purple
+    color: yellow
   warning:
     title: Warnung
     color: yellow
