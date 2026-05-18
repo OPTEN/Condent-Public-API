@@ -18,11 +18,128 @@ Die folgenden HTTP-Header müssen für die Authentifizierung verwendet werden:
  - `X-CONDENT-TIMESTAMP`: UTC Zeitstempel in Millisekunden
  - `X-CONDENT-SIGN`: Eine aus den Request-Parametern abgeleitete Signatur
 
-### X-CONDENT-SIGN generieren
+{: .new }
+Änderungen: 18.05.26 - **Sign V2**
+
+### X-CONDENT-SIGN generieren (Sign V2)
 
 Um eine Signatur zu generieren, benötigen sie einen `SecretKey`welchen Sie von uns erhalten (support@condent.ch).
 
 Die Signatur setzt sich wie folgt zusammen:
+
+1. `sign` String erstellen (siehe unten)
+2. Diesen `sign` String mit HMAC SHA256 und dem `SecretKey` signieren
+3. Diese Signatur zu base64 encoden
+
+#### Sign String Aufbau (Sign V2)
+
+Der `sign` String wird wie folgt aufgebaut (alle Teile durch `\n` getrennt):
+
+```
+apiKey
+method (uppercase)
+scheme (lowercase)
+host (lowercase)
+path (lowercase)
+querystring (original case)
+timestamp
+body
+```
+
+**Details:**
+- `apiKey`: Der API-Schlüssel (identisch mit `X-CONDENT-API-KEY`)
+- `method`: HTTP-Methode in **GROSSBUCHSTABEN** (GET, POST, PUT, PATCH, DELETE)
+- `scheme`: Protokoll in **Kleinbuchstaben** (https, http)
+- `host`: Domain in **Kleinbuchstaben** (api.condent.app)
+- `path`: Pfad in **Kleinbuchstaben** (/v1/order, /v2/billing/event)
+- `querystring`: Query-Parameter in **Original-Schreibweise** inkl. `?` (?limit=50 oder leer bei keinen Parametern)
+- `timestamp`: Der Unix-Timestamp in Millisekunden (identisch mit `X-CONDENT-TIMESTAMP`)
+- `body`: Request Body als String (leer bei GET-Requests, Dateiname bei File-Uploads)
+
+{: .warning }
+**Wichtig:** Scheme, host und path müssen in **Kleinbuchstaben** sein! Method ist in GROSSBUCHSTABEN. Querystring bleibt in **Original-Schreibweise**.
+
+#### Beispiele für Sign String (Sign V2)
+
+**POST Request mit JSON Body:**
+```
+POST https://api.condent.app/v1/Order
+API Key: YOUR_API_KEY
+Body: {"patient":{"firstName":"Max","lastName":"Muster"}}
+Timestamp: 1735034400000
+
+sign:
+YOUR_API_KEY
+POST
+https
+api.condent.app
+/v1/order
+
+1735034400000
+{"patient":{"firstName":"Max","lastName":"Muster"}}
+```
+
+**GET Request ohne Body:**
+```
+GET https://api.condent.app/v2/Billing/Event?limit=50
+API Key: YOUR_API_KEY
+Timestamp: 1735034400000
+
+sign:
+YOUR_API_KEY
+GET
+https
+api.condent.app
+/v2/billing/event
+?limit=50
+1735034400000
+
+```
+(Beachten Sie die leere Zeile am Ende für den leeren Body)
+
+**GET Request mit Cursor:**
+```
+GET https://api.condent.app/v2/Billing/Event?cursor=abc123%3D%3D&limit=50
+API Key: YOUR_API_KEY
+Timestamp: 1735034400000
+
+sign:
+YOUR_API_KEY
+GET
+https
+api.condent.app
+/v2/billing/event
+?cursor=abc123%3D%3D&limit=50
+1735034400000
+
+```
+
+**PUT Request mit File Upload:**
+```
+PUT https://api.condent.app/v1/Order/abc123/Upload
+API Key: YOUR_API_KEY
+Filename: scan.stl
+Timestamp: 1735034400000
+
+sign:
+YOUR_API_KEY
+PUT
+https
+api.condent.app
+/v1/order/abc123/upload
+
+1735034400000
+scan.stl
+```
+
+---
+
+### X-CONDENT-SIGN generieren (Sign V1 - Legacy)
+
+{: .warning }
+**Veraltet:** Diese Methode wird nicht mehr empfohlen. Bitte verwenden Sie Sign V2 für alle neuen Implementierungen.
+
+**Sign V1** verwendet eine einfachere Signatur-Methode:
 
 1. Prehash aus`timestamp` + `apiKey` + `body` erstellen
 2. Diesen Prehash mit HMAC SHA256 und dem `SecretKey` signieren
@@ -31,6 +148,7 @@ Die Signatur setzt sich wie folgt zusammen:
 `timestamp` entspricht dem Header `X-CONDENT-TIMESTAMP`
 `apiKey` entspricht dem Header `X-CONDENT-API-KEY`
 `body` entspricht dem Request Body z.B. `"{ patient: { firstName: 'XXXXX' } }"`
+```
 
 Beispiele finden sie unter [examples](https://github.com/OPTEN/Condent-Public-API/tree/main/examples).
 
@@ -186,7 +304,20 @@ Content-Disposition: form-data; name="file.jpg"; filename="file.jpg"
 Content-Type: image/jpeg
 ```
 
-`X-CONDENT-SIGN` wird aus dem geschickten Dateinamen (file.jpg) generiert.
+**Sign V2:** Der `sign` String für `X-CONDENT-SIGN` wird wie folgt erstellt:
+
+```
+apiKey
+PUT
+https
+api-dev.condent.app
+/v1/order/xxxxx/upload
+
+timestamp
+file.jpg
+```
+
+(Der Dateiname "file.jpg" ist der Body-Parameter für die Signatur)
 
 #### Response Beispiel
 

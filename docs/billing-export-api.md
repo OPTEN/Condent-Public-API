@@ -12,9 +12,29 @@ Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
 
 Zusätzlich können in Ihrem System erzeugte Leistungen (z.B. Rechnungen oder Kostenvoranschläge) wieder nach Condent [zurückgespielt](#leistungen-importieren-bzw-erstellen-kostenvoranschlag-rechnung-usw) werden. Dabei können auch Dateien (z.B. PDF, XML usw.) übertragen werden.
 
-## Authentifizierung
+## Authentifizierung (Sign V2)
 
 Siehe [hier](./index.md#authentifizierung).
+
+**Wichtig:** Alle Endpunkte in dieser API verwenden **Sign V2** für die Authentifizierung.
+
+Der `sign` String wird nach folgendem Schema aufgebaut (durch `\n` getrennt):
+
+```
+apiKey
+method (uppercase)
+scheme (lowercase)
+host (lowercase)
+path (lowercase)
+querystring (original case)
+timestamp
+body
+```
+
+{: .warning }
+Die URL-Komponenten (scheme, host, path) müssen in **Kleinbuchstaben** konvertiert werden! Der querystring bleibt in **Original-Schreibweise**.
+
+Details und Beispiele finden Sie in der [Authentifizierungs-Dokumentation](./index.md#x-condent-sign-generieren-sign-v2).
 
 ## Konzept
 

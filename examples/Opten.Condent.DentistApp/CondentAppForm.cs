@@ -17,14 +17,17 @@ namespace Opten.Condent.DentistApp
 		private const string SECRET_KEY = "YOUR_SECRET_KEY";
 
 		private readonly List<string> _tempFileNames = new();
+		private string? _billingNextCursor;
 
 		public CondentAppForm()
 		{
 			InitializeComponent();
 
-			dtpOrderAppointmentTime.Format = DateTimePickerFormat.Custom;
+            dtpOrderAppointmentTime.Format = DateTimePickerFormat.Custom;
 			dtpOrderAppointmentTime.CustomFormat = "HH:mm";
 			dtpOrderAppointmentTime.ShowUpDown = true;
+
+			InitializeBillingGrid();
 		}
 
 		private async void btnPatientSend_Click(object sender, EventArgs e)
@@ -73,13 +76,15 @@ namespace Opten.Condent.DentistApp
 					BaseAddress = new Uri(tbSettingsApiUrl.Text.Trim())
 				};
 
-				using var request = new HttpRequestMessage(HttpMethod.Post, "v1/order");
+				var endpoint = "v1/order";
+				using var request = new HttpRequestMessage(HttpMethod.Post, endpoint);
 
 				var body = JsonSerializer.Serialize(data, GetDefaultOptions());
 
 				request.Content = new StringContent(body, Encoding.UTF8, "application/json");
 
-				await AddAuthorizationAsync(request, body);
+				var fullUrl = new Uri(new Uri(tbSettingsApiUrl.Text.Trim()), endpoint);
+				await AddAuthorizationAsync(request, fullUrl, body);
 
 				using var response = await httpClient.SendAsync(request);
 
@@ -139,13 +144,13 @@ namespace Opten.Condent.DentistApp
 
 						form.Add(new ByteArrayContent(fileBytes), "file", fileName);
 
-						using var request = new HttpRequestMessage(HttpMethod.Put, $"v1/order/{token}/upload");
+						var endpoint = $"v1/order/{token}/upload";
+						using var request = new HttpRequestMessage(HttpMethod.Put, endpoint);
 
 						request.Content = form;
 
-						var stringToSign = fileName;
-
-						await AddAuthorizationAsync(request, stringToSign);
+						var fullUrl = new Uri(new Uri(tbSettingsApiUrl.Text.Trim()), endpoint);
+						await AddAuthorizationAsync(request, fullUrl, fileName);
 
 						await httpClient.SendAsync(request);
 					}));
@@ -164,7 +169,7 @@ namespace Opten.Condent.DentistApp
 			tbFileName.Text = null;
 		}
 
-		private async Task AddAuthorizationAsync(HttpRequestMessage request, string stringToSign)
+		private async Task AddAuthorizationAsync(HttpRequestMessage request, Uri requestUri, string body)
 		{
 			var apiKey = tbApiKey.Text.Trim();
 
@@ -172,15 +177,25 @@ namespace Opten.Condent.DentistApp
 			var timestamp = await GetCondentServerTime();
 			//timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
+			// Build sign string according to Sign V2 specification:
+			// apiKey \n method (upper) \n scheme (lower) \n host (lower) \n path (lower) \n querystring (original case) \n timestamp \n body
+			var method = request.Method.Method.ToUpperInvariant();
+			var scheme = requestUri.Scheme.ToLowerInvariant();
+			var host = requestUri.Host.ToLowerInvariant();
+			var path = requestUri.AbsolutePath.ToLowerInvariant();
+			var query = requestUri.Query; // Keep original case!
+
+			var signString = $"{apiKey}\n{method}\n{scheme}\n{host}\n{path}\n{query}\n{timestamp}\n{body}";
+
 			var secretKey = Encoding.UTF8.GetBytes(SECRET_KEY);
 			using var encryptor = new HMACSHA256(secretKey);
 
-			var bytes = encryptor.ComputeHash(Encoding.UTF8.GetBytes(timestamp + apiKey + stringToSign));
-			var sign = Convert.ToBase64String(bytes);
+			var bytes = encryptor.ComputeHash(Encoding.UTF8.GetBytes(signString));
+			var signature = Convert.ToBase64String(bytes);
 
 			request.Headers.Add("X-CONDENT-API-KEY", apiKey);
 			request.Headers.Add("X-CONDENT-TIMESTAMP", timestamp.ToString(CultureInfo.InvariantCulture));
-			request.Headers.Add("X-CONDENT-SIGN", sign);
+			request.Headers.Add("X-CONDENT-SIGN", signature);
 		}
 
 		private async Task<long> GetCondentServerTime()
@@ -201,6 +216,54 @@ namespace Opten.Condent.DentistApp
 			var serverTime = JsonSerializer.Deserialize<TimeResponse>(stream, GetDefaultOptions());
 
 			return serverTime!.Milliseconds;
+		}
+
+		private async Task<BillingEventsResponse?> GetBillingEventsAsync(string? cursor = null, int limit = 50)
+		{
+			try
+			{
+				// This is just for demo purpose. It's up to you how you want to handle HttpClient, JSON parsing, etc.
+				using var httpClient = new HttpClient
+				{
+					BaseAddress = new Uri(tbSettingsApiUrl.Text.Trim())
+				};
+
+				var queryParams = new List<string>();
+				if (!string.IsNullOrWhiteSpace(cursor))
+				{
+					queryParams.Add($"cursor={Uri.EscapeDataString(cursor)}");
+				}
+				queryParams.Add($"limit={limit}");
+
+				var queryString = string.Join("&", queryParams);
+				var endpoint = $"v2/Billing/Event?{queryString}";
+
+				using var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
+
+				var fullUrl = new Uri(new Uri(tbSettingsApiUrl.Text.Trim()), endpoint);
+				await AddAuthorizationAsync(request, fullUrl, string.Empty);
+
+				using var response = await httpClient.SendAsync(request);
+
+				response.EnsureSuccessStatusCode();
+
+				var stream = await response.Content.ReadAsStringAsync();
+				var billingEvents = JsonSerializer.Deserialize<BillingEventsResponse>(stream, GetDefaultOptions());
+
+				return billingEvents;
+			}
+			catch
+			{
+				// You should show a message to the user that the user should try again.
+				// You also might want to look into to returned errors.
+				// Possible errors are:
+				// - Wrong API Key or API Key deleted by user
+				// - Timestamp not synced
+				// - api.condent.app is currently not reachable
+
+				MessageBox.Show("Fehler beim Abrufen der Rechnungsereignisse. Bitte versuchen Sie es später erneut.");
+				return null;
+			}
 		}
 
 		private void btnCopyToClipboard_Click(object sender, EventArgs e)
@@ -337,6 +400,179 @@ namespace Opten.Condent.DentistApp
 					$"Details:\n\n{ex.StackTrace}");
 				}
 			}
+		}
+
+		private void InitializeBillingGrid()
+		{
+			dgvBillingEvents.AutoGenerateColumns = false;
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "EventId",
+				HeaderText = "Event ID",
+				DataPropertyName = "EventId",
+				Width = 80
+			});
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "EventType",
+				HeaderText = "Ereignistyp",
+				DataPropertyName = "EventType",
+				Width = 100
+			});
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "Timestamp",
+				HeaderText = "Zeitstempel",
+				DataPropertyName = "Timestamp",
+				Width = 150
+			});
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "Reference",
+				HeaderText = "Referenz",
+				DataPropertyName = "Reference",
+				Width = 120
+			});
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "Title",
+				HeaderText = "Titel",
+				DataPropertyName = "Title",
+				Width = 150
+			});
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "Type",
+				HeaderText = "Typ",
+				DataPropertyName = "Type",
+				Width = 100
+			});
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "Status",
+				HeaderText = "Status",
+				DataPropertyName = "Status",
+				Width = 100
+			});
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "TotalPrice",
+				HeaderText = "Gesamtpreis",
+				DataPropertyName = "TotalPrice",
+				Width = 100
+			});
+
+			dgvBillingEvents.Columns.Add(new DataGridViewTextBoxColumn
+			{
+				Name = "PatientReference",
+				HeaderText = "Patient Ref.",
+				DataPropertyName = "PatientReference",
+				Width = 120
+			});
+
+			btnBillingLoadMore.Enabled = false;
+		}
+
+		private async void btnBillingRefresh_Click(object sender, EventArgs e)
+		{
+			btnBillingRefresh.Enabled = false;
+			btnBillingLoadMore.Enabled = false;
+
+			_billingNextCursor = null;
+			dgvBillingEvents.DataSource = null;
+
+			await LoadBillingEventsAsync();
+
+			btnBillingRefresh.Enabled = true;
+		}
+
+		private async void btnBillingLoadMore_Click(object sender, EventArgs e)
+		{
+			btnBillingLoadMore.Enabled = false;
+
+			await LoadBillingEventsAsync(_billingNextCursor);
+		}
+
+		private async Task LoadBillingEventsAsync(string? cursor = null)
+		{
+			try
+			{
+				lblBillingStatus.Text = "Lade Rechnungsereignisse...";
+				lblBillingStatus.ForeColor = Color.Black;
+
+				var response = await GetBillingEventsAsync(cursor);
+
+				if (response == null || response.Events == null)
+				{
+					btnBillingRefresh.Enabled = true;
+					btnBillingLoadMore.Enabled = !string.IsNullOrEmpty(_billingNextCursor);
+
+					lblBillingStatus.Text = "Fehler beim Laden der Rechnungsereignisse.";
+					lblBillingStatus.ForeColor = Color.Red;
+					return;
+				}
+
+				var displayEvents = response.Events.Select(e => new BillingEventDisplay
+				{
+					EventId = e.EventId,
+					EventType = e.EventType.ToString(),
+					Timestamp = e.Timestamp.ToLocalTime(),
+					Reference = e.Data?.Reference ?? "",
+					Title = e.Data?.Title ?? "",
+					Type = e.Data?.Type.ToString() ?? "",
+					Status = e.Data?.Status ?? "",
+					TotalPrice = e.Data != null ? $"{e.Data.TotalPrice:F2} {e.Data.CurrencySymbol}" : "",
+					PatientReference = e.Data?.PatientReference ?? ""
+				}).ToList();
+
+				if (cursor == null)
+				{
+					dgvBillingEvents.DataSource = displayEvents;
+				}
+				else
+				{
+					var existingData = (dgvBillingEvents.DataSource as List<BillingEventDisplay>) ?? new List<BillingEventDisplay>();
+					existingData.AddRange(displayEvents);
+					dgvBillingEvents.DataSource = null;
+					dgvBillingEvents.DataSource = existingData;
+				}
+
+				_billingNextCursor = response.NextCursor;
+				btnBillingLoadMore.Enabled = response.HasMore && !string.IsNullOrEmpty(response.NextCursor);
+
+				lblBillingStatus.Text = $"{displayEvents.Count} Ereignisse geladen. " +
+					(response.HasMore ? "Weitere verfügbar." : "Alle geladen.");
+				lblBillingStatus.ForeColor = Color.Green;
+			}
+			catch (Exception ex)
+			{
+				btnBillingRefresh.Enabled = true;
+				btnBillingLoadMore.Enabled = !string.IsNullOrEmpty(_billingNextCursor);
+
+				lblBillingStatus.Text = $"Fehler: {ex.Message}";
+				lblBillingStatus.ForeColor = Color.Red;
+			}
+		}
+
+		private class BillingEventDisplay
+		{
+			public long EventId { get; set; }
+			public string EventType { get; set; } = "";
+			public DateTime Timestamp { get; set; }
+			public string Reference { get; set; } = "";
+			public string Title { get; set; } = "";
+			public string Type { get; set; } = "";
+			public string Status { get; set; } = "";
+			public string TotalPrice { get; set; } = "";
+			public string PatientReference { get; set; } = "";
 		}
 
 	}

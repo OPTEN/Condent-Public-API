@@ -28,6 +28,11 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			tpBilling = new TabPage();
+			dgvBillingEvents = new DataGridView();
+			btnBillingLoadMore = new Button();
+			btnBillingRefresh = new Button();
+			lblBillingStatus = new Label();
 			tpSettings = new TabPage();
 			btnSettingsSave = new Button();
 			lblUrl = new Label();
@@ -92,11 +97,71 @@
 			lblPatientSalutation = new Label();
 			tcDefault = new TabControl();
 			openFileDialog1 = new OpenFileDialog();
+			tpBilling.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)dgvBillingEvents).BeginInit();
 			tpSettings.SuspendLayout();
 			tpOrder.SuspendLayout();
 			tpPatient.SuspendLayout();
 			tcDefault.SuspendLayout();
 			SuspendLayout();
+			// 
+			// tpBilling
+			// 
+			tpBilling.Controls.Add(dgvBillingEvents);
+			tpBilling.Controls.Add(btnBillingLoadMore);
+			tpBilling.Controls.Add(btnBillingRefresh);
+			tpBilling.Controls.Add(lblBillingStatus);
+			tpBilling.Location = new Point(4, 24);
+			tpBilling.Name = "tpBilling";
+			tpBilling.Padding = new Padding(3);
+			tpBilling.Size = new Size(1131, 661);
+			tpBilling.TabIndex = 3;
+			tpBilling.Text = "Rechnungen";
+			tpBilling.UseVisualStyleBackColor = true;
+			// 
+			// dgvBillingEvents
+			// 
+			dgvBillingEvents.AllowUserToAddRows = false;
+			dgvBillingEvents.AllowUserToDeleteRows = false;
+			dgvBillingEvents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			dgvBillingEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+			dgvBillingEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dgvBillingEvents.Location = new Point(23, 80);
+			dgvBillingEvents.Name = "dgvBillingEvents";
+			dgvBillingEvents.ReadOnly = true;
+			dgvBillingEvents.RowHeadersWidth = 51;
+			dgvBillingEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dgvBillingEvents.Size = new Size(1085, 514);
+			dgvBillingEvents.TabIndex = 3;
+			// 
+			// btnBillingLoadMore
+			// 
+			btnBillingLoadMore.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btnBillingLoadMore.Location = new Point(990, 616);
+			btnBillingLoadMore.Name = "btnBillingLoadMore";
+			btnBillingLoadMore.Size = new Size(118, 28);
+			btnBillingLoadMore.TabIndex = 2;
+			btnBillingLoadMore.Text = "Mehr laden";
+			btnBillingLoadMore.UseVisualStyleBackColor = true;
+			btnBillingLoadMore.Click += btnBillingLoadMore_Click;
+			// 
+			// btnBillingRefresh
+			// 
+			btnBillingRefresh.Location = new Point(23, 37);
+			btnBillingRefresh.Name = "btnBillingRefresh";
+			btnBillingRefresh.Size = new Size(118, 28);
+			btnBillingRefresh.TabIndex = 1;
+			btnBillingRefresh.Text = "Aktualisieren";
+			btnBillingRefresh.UseVisualStyleBackColor = true;
+			btnBillingRefresh.Click += btnBillingRefresh_Click;
+			// 
+			// lblBillingStatus
+			// 
+			lblBillingStatus.AutoSize = true;
+			lblBillingStatus.Location = new Point(147, 43);
+			lblBillingStatus.Name = "lblBillingStatus";
+			lblBillingStatus.Size = new Size(0, 15);
+			lblBillingStatus.TabIndex = 0;
 			// 
 			// tpSettings
 			// 
@@ -145,7 +210,7 @@
 			tbApiKey.Name = "tbApiKey";
 			tbApiKey.Size = new Size(516, 23);
 			tbApiKey.TabIndex = 0;
-			tbApiKey.Text = "GKDqbaxYyZMw7m34ui";
+			tbApiKey.Text = "---";
 			// 
 			// lblApiKey
 			// 
@@ -698,6 +763,7 @@
 			// 
 			tcDefault.Controls.Add(tpPatient);
 			tcDefault.Controls.Add(tpOrder);
+			tcDefault.Controls.Add(tpBilling);
 			tcDefault.Controls.Add(tpSettings);
 			tcDefault.Dock = DockStyle.Fill;
 			tcDefault.Location = new Point(0, 0);
@@ -719,6 +785,9 @@
 			Controls.Add(tcDefault);
 			Name = "CondentAppForm";
 			Text = "Condent API Testing App";
+			tpBilling.ResumeLayout(false);
+			tpBilling.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)dgvBillingEvents).EndInit();
 			tpSettings.ResumeLayout(false);
 			tpSettings.PerformLayout();
 			tpOrder.ResumeLayout(false);
@@ -731,6 +800,11 @@
 
 		#endregion
 
+		private TabPage tpBilling;
+		private DataGridView dgvBillingEvents;
+		private Button btnBillingLoadMore;
+		private Button btnBillingRefresh;
+		private Label lblBillingStatus;
 		private TabPage tpSettings;
 		private Button btnSettingsSave;
 		private Label lblUrl;

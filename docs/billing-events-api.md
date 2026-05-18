@@ -12,9 +12,30 @@ Die neue eventbasierte API ermöglicht es, Änderungen an Leistungen (z.B. Liefe
 
 Dokumente wie **PDF** oder **XML** (Suva/Sumex1, VDDS) werden ebenfalls mitgeliefert.
 
-## Authentifizierung
+## Authentifizierung (Sign V2)
 
 Siehe [hier](./index.md#authentifizierung).
+
+**Wichtig:** Alle Endpunkte in dieser API verwenden **Sign V2** für die Authentifizierung.
+
+Der `sign` String wird nach folgendem Schema aufgebaut (durch `\n` getrennt):
+
+```
+apiKey
+method (uppercase)
+scheme (lowercase)
+host (lowercase)
+path (lowercase)
+querystring (lowercase)
+querystring (original case)
+timestamp
+body
+```
+
+{: .warning }
+Die URL-Komponenten (scheme, host, path) müssen in **Kleinbuchstaben** konvertiert werden! Der querystring bleibt in **Original-Schreibweise**.
+
+Details und Beispiele finden Sie in der [Authentifizierungs-Dokumentation](./index.md#x-condent-sign-generieren-sign-v2).
 
 ## Konzept
 
