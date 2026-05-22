@@ -201,7 +201,7 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 | insurances   | Nein        | string array        | Versicherungen des Patienten        |
 | color | Nein        | string | Farbe, z.B. für Krone oder Schiene        |
 | description | Nein        | string        | Beschreibung des Auftrags |
-| scanSentVia | Nein        | string | Scan versendet via |
+| scanSentVia | Nein        | string | Scan versendet via. Mögliche Werte: `DSCore`, `ThreeShape`, `ITero`, `Shining3D`, `Medit`, `StraumannAxs`, `Other` |
 | trackingNumber | Nein        | string | Trackingnummer (z.B. Post) des Auftrags |
 | patient | **Ja**        | object | Patientendaten |
 | patient.reference | **Ja**        | string | Eindeutige Patientennummer Ihrer Praxissoftware |

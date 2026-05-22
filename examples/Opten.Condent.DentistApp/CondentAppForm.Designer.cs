@@ -346,7 +346,7 @@
 			// cbOrderScanSentVia
 			// 
 			cbOrderScanSentVia.FormattingEnabled = true;
-			cbOrderScanSentVia.Items.AddRange(new object[] { "Sirona", "3 Shape" });
+			cbOrderScanSentVia.Items.AddRange(new object[] { "DS Core", "3Shape" });
 			cbOrderScanSentVia.Location = new Point(136, 250);
 			cbOrderScanSentVia.Name = "cbOrderScanSentVia";
 			cbOrderScanSentVia.Size = new Size(200, 23);

@@ -2,9 +2,11 @@
 
 public enum OrderScanSentViaType
 {
-	Unknown,
-	Sirona,
+	DSCore,
 	ThreeShape,
-	Itero,
+	ITero,
+	Shining3D,
+	Medit,
+	StraumannAxs,
 	Other
 }

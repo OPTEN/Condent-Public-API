@@ -358,8 +358,8 @@ namespace Opten.Condent.DentistApp
 
             var scanSentVia = cbOrderScanSentVia.SelectedItem?.ToString()?.Trim() switch
             {
-                "Sirona" => OrderScanSentViaType.Sirona,
-                "3 Shape" => OrderScanSentViaType.ThreeShape,
+                "DS Core" => OrderScanSentViaType.DSCore,
+                "3Shape" => OrderScanSentViaType.ThreeShape,
                 _ => (OrderScanSentViaType?)null
             };
 
