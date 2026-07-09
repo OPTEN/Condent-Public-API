@@ -205,6 +205,7 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 | trackingNumber | Nein        | string | Trackingnummer (z.B. Post) des Auftrags |
 | patient | **Ja**        | object | Patientendaten |
 | patient.reference | **Ja**        | string | Eindeutige Patientennummer Ihrer Praxissoftware |
+| patient.salutation | Nein        | string | Anrede des Patienten. Mögliche Werte siehe unten. |
 | patient.firstName | **Ja**        | string | Vorname des Patienten |
 | patient.lastName | **Ja**        | string | Nachname des Patienten |
 | patient.birthday | Nein        | date | Geburtstag des Patienten in UTC (z.B. 1991-01-01T00:00:00Z) |
@@ -225,6 +226,24 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 | attachments.upperJaw | Nein | bool | OK |
 | attachments.lowerJaw | Nein | bool | UK |
 | attachments.description | Nein | string | Beschreibung der Beilage |
+
+##### Mögliche Werte für `patient.salutation`
+
+| Wert | Beschreibung |
+| ----------- | ----------- |
+| `Mr` | Herr |
+| `Ms` | Frau |
+| `MrMedDent` | Herr med. dent. |
+| `MsMedDent` | Frau med. dent. |
+| `DresMedDent` | Dres. med. dent. |
+| `MrDrMedDent` | Herr Dr. med. dent. |
+| `MsDrMedDent` | Frau Dr. med. dent. |
+| `MrDrDrMedDent` | Herr Dr. Dr. med. dent. |
+| `MsDrDrMedDent` | Frau Dr. Dr. med. dent. |
+| `MrProfDrMedDent` | Herr Prof. Dr. med. dent. |
+| `MsProfDrMedDent` | Frau Prof. Dr. med. dent. |
+| `MrProfDrDrMedDent` | Herr Prof. Dr. Dr. med. dent. |
+| `MsProfDrDrMedDent` | Frau Prof. Dr. Dr. med. dent. |
 
 ---
 

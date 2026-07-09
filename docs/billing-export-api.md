@@ -114,8 +114,28 @@ GET /v2/billing/export-events
 | `customer.reference` | Code z.B. aus einem ERP-System |
 | `patient.id` | Interne Condent-ID des Patienten |
 | `patient.reference` | Pat Nr. z.B. aus einem ERP-System |
+| `patient.salutation` | Anrede des Patienten (kann leer sein), mögliche Werte siehe unten |
 | `customerEmployee` | Behandler (kann leer sein) |
+| `customerEmployee.salutation` | Anrede des Behandlers (kann leer sein), mögliche Werte siehe unten |
 | `type` | Typ der erwarteten Leistung (z.B. Kostenvoranschlag oder Rechnung; optional) |
+
+### Mögliche Werte für `patient.salutation` und `customerEmployee.salutation`
+
+| Wert | Beschreibung |
+|-----|--------------|
+| `Mr` | Herr |
+| `Ms` | Frau |
+| `MrMedDent` | Herr med. dent. |
+| `MsMedDent` | Frau med. dent. |
+| `DresMedDent` | Dres. med. dent. |
+| `MrDrMedDent` | Herr Dr. med. dent. |
+| `MsDrMedDent` | Frau Dr. med. dent. |
+| `MrDrDrMedDent` | Herr Dr. Dr. med. dent. |
+| `MsDrDrMedDent` | Frau Dr. Dr. med. dent. |
+| `MrProfDrMedDent` | Herr Prof. Dr. med. dent. |
+| `MsProfDrMedDent` | Frau Prof. Dr. med. dent. |
+| `MrProfDrDrMedDent` | Herr Prof. Dr. Dr. med. dent. |
+| `MsProfDrDrMedDent` | Frau Prof. Dr. Dr. med. dent. |
 
 ## Leistungen importieren bzw. erstellen (Kostenvoranschlag, Rechnung usw.)
 
