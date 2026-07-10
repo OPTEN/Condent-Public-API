@@ -231,19 +231,19 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 
 | Wert | Beschreibung |
 | ----------- | ----------- |
-| `Mr` | Herr |
-| `Ms` | Frau |
-| `MrMedDent` | Herr med. dent. |
-| `MsMedDent` | Frau med. dent. |
-| `DresMedDent` | Dres. med. dent. |
-| `MrDrMedDent` | Herr Dr. med. dent. |
-| `MsDrMedDent` | Frau Dr. med. dent. |
-| `MrDrDrMedDent` | Herr Dr. Dr. med. dent. |
-| `MsDrDrMedDent` | Frau Dr. Dr. med. dent. |
-| `MrProfDrMedDent` | Herr Prof. Dr. med. dent. |
-| `MsProfDrMedDent` | Frau Prof. Dr. med. dent. |
-| `MrProfDrDrMedDent` | Herr Prof. Dr. Dr. med. dent. |
-| `MsProfDrDrMedDent` | Frau Prof. Dr. Dr. med. dent. |
+| `mr` | Herr |
+| `ms` | Frau |
+| `mrmeddent` | Herr med. dent. |
+| `msmeddent` | Frau med. dent. |
+| `dresmeddent` | Dres. med. dent. |
+| `mrdrmeddent` | Herr Dr. med. dent. |
+| `msdrmeddent` | Frau Dr. med. dent. |
+| `mrdrdrmeddent` | Herr Dr. Dr. med. dent. |
+| `msdrdrmeddent` | Frau Dr. Dr. med. dent. |
+| `mrprofdrmeddent` | Herr Prof. Dr. med. dent. |
+| `msprofdrmeddent` | Frau Prof. Dr. med. dent. |
+| `mrprofdrdrmeddent` | Herr Prof. Dr. Dr. med. dent. |
+| `msprofdrdrmeddent` | Frau Prof. Dr. Dr. med. dent. |
 
 ---
 
