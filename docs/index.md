@@ -197,7 +197,7 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 | Parameter   | Pflicht     | Typ         | Kommentar |
 | ----------- | ----------- | ----------- | ----------- |
 | title       | Nein        | string      | Der Titel des Auftrags       |
-| costUnitType   | Nein        | string        | Kostenträger des Auftrags       |
+| costUnitType   | Nein        | string        | Kostenträger des Auftrags. Mögliche Werte: `Private` (Privat), `Suva` (Suva / IV / MV), `AccidentInsurance` (Unfall / UVG), `HealthInsurance` (Krankheit / KVG), `Social` (EL / Asyl / Sozial), `StandardSupply` (Grundversorgung), `SimilarSupply` (Gleichartige Versorgung), `DifferentSupply` (Andersartige Versorgung) |
 | insurances   | Nein        | string array        | Versicherungen des Patienten        |
 | color | Nein        | string | Farbe, z.B. für Krone oder Schiene        |
 | description | Nein        | string        | Beschreibung des Auftrags |
