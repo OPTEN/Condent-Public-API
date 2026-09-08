@@ -229,21 +229,50 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 
 ##### Mögliche Werte für `patient.salutation`
 
-| Wert | Beschreibung |
-| ----------- | ----------- |
-| `mr` | Herr |
-| `ms` | Frau |
-| `mrmeddent` | Herr med. dent. |
-| `msmeddent` | Frau med. dent. |
-| `dresmeddent` | Dres. med. dent. |
-| `mrdrmeddent` | Herr Dr. med. dent. |
-| `msdrmeddent` | Frau Dr. med. dent. |
-| `mrdrdrmeddent` | Herr Dr. Dr. med. dent. |
-| `msdrdrmeddent` | Frau Dr. Dr. med. dent. |
-| `mrprofdrmeddent` | Herr Prof. Dr. med. dent. |
-| `msprofdrmeddent` | Frau Prof. Dr. med. dent. |
+| Wert                | Beschreibung                  |
+| ------------------- | ----------------------------- |
+| `mr`                | Herr                          |
+| `ms`                | Frau                          |
+| `mrdr`              | Herr Dr.                      |
+| `msdr`              | Frau Dr.                      |
+| `mrdrdr`            | Herr Dr. Dr.                  |
+| `msdrdr`            | Frau Dr. Dr.                  |
+| `mrprof`            | Herr Prof.                    |
+| `msprof`            | Frau Prof.                    |
+| `mrprofdr`          | Herr Prof. Dr.                |
+| `msprofdr`          | Frau Prof. Dr.                |
+| `mrprofdrdr`        | Herr Prof. Dr. Dr.            |
+| `msprofdrdr`        | Frau Prof. Dr. Dr.            |
+| `mrmed`             | Herr med.                     |
+| `msmed`             | Frau med.                     |
+| `mrdent`            | Herr dent.                    |
+| `msdent`            | Frau dent.                    |
+| `mrmeddent`         | Herr med. dent.               |
+| `msmeddent`         | Frau med. dent.               |
+| `mrdrmed`           | Herr Dr. med.                 |
+| `msdrmed`           | Frau Dr. med.                 |
+| `mrdrdent`          | Herr Dr. dent.                |
+| `msdrdent`          | Frau Dr. dent.                |
+| `mrdrmeddent`       | Herr Dr. med. dent.           |
+| `msdrmeddent`       | Frau Dr. med. dent.           |
+| `mrdrdrmeddent`     | Herr Dr. Dr. med. dent.       |
+| `msdrdrmeddent`     | Frau Dr. Dr. med. dent.       |
+| `mrprofmed`         | Herr Prof. med.               |
+| `msprofmed`         | Frau Prof. med.               |
+| `mrprofdent`        | Herr Prof. dent.              |
+| `msprofdent`        | Frau Prof. dent.              |
+| `mrprofdrmed`       | Herr Prof. Dr. med.           |
+| `msprofdrmed`       | Frau Prof. Dr. med.           |
+| `mrprofdrdent`      | Herr Prof. Dr. dent.          |
+| `msprofdrdent`      | Frau Prof. Dr. dent.          |
+| `mrprofdrmeddent`   | Herr Prof. Dr. med. dent.     |
+| `msprofdrmeddent`   | Frau Prof. Dr. med. dent.     |
 | `mrprofdrdrmeddent` | Herr Prof. Dr. Dr. med. dent. |
 | `msprofdrdrmeddent` | Frau Prof. Dr. Dr. med. dent. |
+| `dres`              | Dres.                         |
+| `dresmed`           | Dres. med.                    |
+| `dresdent`          | Dres. dent.                   |
+| `dresmeddent`       | Dres. med. dent.              |
 
 ---
 
