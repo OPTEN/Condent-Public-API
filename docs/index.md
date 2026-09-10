@@ -243,35 +243,24 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 | `msprofdr`          | Frau Prof. Dr.                |
 | `mrprofdrdr`        | Herr Prof. Dr. Dr.            |
 | `msprofdrdr`        | Frau Prof. Dr. Dr.            |
-| `mrmed`             | Herr med.                     |
-| `msmed`             | Frau med.                     |
-| `mrdent`            | Herr dent.                    |
-| `msdent`            | Frau dent.                    |
-| `mrmeddent`         | Herr med. dent.               |
-| `msmeddent`         | Frau med. dent.               |
 | `mrdrmed`           | Herr Dr. med.                 |
 | `msdrmed`           | Frau Dr. med.                 |
-| `mrdrdent`          | Herr Dr. dent.                |
-| `msdrdent`          | Frau Dr. dent.                |
 | `mrdrmeddent`       | Herr Dr. med. dent.           |
 | `msdrmeddent`       | Frau Dr. med. dent.           |
+| `mrdrdrmed`         | Herr Dr. Dr. med.             |
+| `msdrdrmed`         | Frau Dr. Dr. med.             |
 | `mrdrdrmeddent`     | Herr Dr. Dr. med. dent.       |
 | `msdrdrmeddent`     | Frau Dr. Dr. med. dent.       |
-| `mrprofmed`         | Herr Prof. med.               |
-| `msprofmed`         | Frau Prof. med.               |
-| `mrprofdent`        | Herr Prof. dent.              |
-| `msprofdent`        | Frau Prof. dent.              |
 | `mrprofdrmed`       | Herr Prof. Dr. med.           |
 | `msprofdrmed`       | Frau Prof. Dr. med.           |
-| `mrprofdrdent`      | Herr Prof. Dr. dent.          |
-| `msprofdrdent`      | Frau Prof. Dr. dent.          |
 | `mrprofdrmeddent`   | Herr Prof. Dr. med. dent.     |
 | `msprofdrmeddent`   | Frau Prof. Dr. med. dent.     |
+| `mrprofdrdrmed`     | Herr Prof. Dr. Dr. med.       |
+| `msprofdrdrmed`     | Frau Prof. Dr. Dr. med.       |
 | `mrprofdrdrmeddent` | Herr Prof. Dr. Dr. med. dent. |
 | `msprofdrdrmeddent` | Frau Prof. Dr. Dr. med. dent. |
 | `dres`              | Dres.                         |
 | `dresmed`           | Dres. med.                    |
-| `dresdent`          | Dres. dent.                   |
 | `dresmeddent`       | Dres. med. dent.              |
 
 ---
