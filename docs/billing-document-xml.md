@@ -24,8 +24,7 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
     <number>LS-12345</number>
     <type>deliveryNote</type>
     <date>2026-10-08</date>
-    <title>Frontzahnkrone mit Einprobe
-</title>
+    <title>Frontzahnkrone mit Einprobe</title>
     <description>Dokumentbeschreibung</description>
     <toothColor>B1</toothColor>
     <currency>CHF</currency>
