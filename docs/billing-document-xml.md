@@ -6,7 +6,7 @@ nav_order: 4
 # Lieferschein-/Rechnungs-XML im PDF
 
 {: .warning }
-**Status:** Entwurf einer Condent-eigenen XML-Struktur.
+Die XML-Struktur befindet sich noch im Entwurfsstadium.
 
 ## Ziel
 
