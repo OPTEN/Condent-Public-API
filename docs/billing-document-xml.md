@@ -26,6 +26,7 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
     <date>2026-10-08</date>
     <title>Behandlung</title>
     <description>Dokumentbeschreibung</description>
+    <toothColor>B1</toothColor>
     <currency>CHF</currency>
   </document>
   <patient>
@@ -53,6 +54,7 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
       </contact>
     </lab>
     <payer>
+      <type>Privat</type>
       <condentId>CONDENT-PAYER-123</condentId>
       <name>Kostenträgername</name>
       <globalLocationNumber>GLN-PAYER</globalLocationNumber>
@@ -135,11 +137,13 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
 | `document/type` | Dokumentart mit einem der festen Werte `invoice` oder `deliveryNote` |
 | `document/date` | Belegdatum im Format `YYYY-MM-DD`. |
 | `document/title`, `document/description` | Getrennte Dokumenttexte. |
+| `document/toothColor` | Zahnfarbe, zum Beispiel `B1`. |
 | `document/currency` | Ein ISO-4217-Währungscode, zum Beispiel `CHF` |
 | `patient/number` | Patientenkennung für die Zuordnung in der empfangenden Praxis. |
 | `patient/condentId` | Interne Condent-ID |
 | `patient/salutation`, `lastName`, `firstName`, `dateOfBirth` | Patientenangaben; Geburtsdatum im Format `YYYY-MM-DD`. |
 | `parties/lab` | Aussteller/Labor mit Name, GLN-Nummer, MWST-Nummer, Anschrift und Kontaktangaben, soweit verfügbar. |
+| `parties/payer/type` | Kostenträgerart: `Privat`, `Suva / IV / MV`, `andere Versicherung` oder `EL / Asyl / Sozial`. |
 | `parties/payer` | Kostenträger mit Condent-ID, Name, GLN-Nummer, MWST-Nummer und Anschrift, soweit verfügbar. |
 | `treatment/practitioner` | Behandler mit optionaler Condent-ID und Namen. |
 | `treatment/manufacturing` | z. B. `Fertigung: Schweiz` |
