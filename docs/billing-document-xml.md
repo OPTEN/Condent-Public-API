@@ -30,7 +30,7 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
     <currency>CHF</currency>
   </document>
   <patient>
-    <number>P-12345</number>
+    <number>12345</number>
     <condentId>C-123456</condentId>
     <salutation>Frau</salutation>
     <lastName>Muster</lastName>
@@ -139,8 +139,8 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
 | `document/title`, `document/description` | Getrennte Dokumenttexte. |
 | `document/toothColor` | Zahnfarbe, zum Beispiel `B1`. |
 | `document/currency` | Ein ISO-4217-Währungscode, zum Beispiel `CHF` |
-| `patient/number` | Patientenkennung für die Zuordnung in der empfangenden Praxis. |
-| `patient/condentId` | Interne Condent-ID |
+| `patient/number` | Patienten-ID aus der Praxis |
+| `patient/condentId` | Patienten-ID von Condent |
 | `patient/salutation`, `lastName`, `firstName`, `dateOfBirth` | Patientenangaben; Geburtsdatum im Format `YYYY-MM-DD`. |
 | `parties/lab` | Aussteller/Labor mit Name, GLN-Nummer, MWST-Nummer, Anschrift und Kontaktangaben, soweit verfügbar. |
 | `parties/payer/type` | Kostenträgerart: `Privat`, `Suva / IV / MV`, `andere Versicherung` oder `EL / Asyl / Sozial`. |
