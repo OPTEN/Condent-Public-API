@@ -43,8 +43,9 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
       <globalLocationNumber>GLN-LAB</globalLocationNumber>
       <vatIdentificationNumber>VAT-ID-LAB</vatIdentificationNumber>
       <address>
-        <street>Laborstrasse 1</street>
-        <postalCode>8000</postalCode>
+        <streetName>Laborstrasse</streetName>
+        <buildingNumber>1</buildingNumber>
+        <zipCode>8000</zipCode>
         <city>Zürich</city>
         <countryCode>CH</countryCode>
       </address>
@@ -60,8 +61,9 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
       <globalLocationNumber>GLN-PAYER</globalLocationNumber>
       <vatIdentificationNumber>VAT-ID-PAYER</vatIdentificationNumber>
       <address>
-        <street>Kostenträgerstrasse 10</street>
-        <postalCode>3000</postalCode>
+        <streetName>Kostenträgerstrasse</streetName>
+        <buildingNumber>10</buildingNumber>
+        <zipCode>3000</zipCode>
         <city>Bern</city>
         <countryCode>CH</countryCode>
       </address>
@@ -142,9 +144,9 @@ Vorgesehen ist, das XML im PDF als PDF/A-3 einzubetten.
 | `patient/number` | Patienten-ID aus der Praxis |
 | `patient/condentId` | Patienten-ID von Condent |
 | `patient/salutation`, `lastName`, `firstName`, `dateOfBirth` | Patientenangaben; Geburtsdatum im Format `YYYY-MM-DD`. |
-| `parties/lab` | Aussteller/Labor mit Name, GLN-Nummer, MWST-Nummer, Anschrift und Kontaktangaben, soweit verfügbar. |
+| `parties/lab` | Aussteller/Labor mit Name, GLN-Nummer, MWST-Nummer, strukturierter Anschrift (`streetName`, `buildingNumber`, `zipCode`, `city`, `countryCode`) und Kontaktangaben, soweit verfügbar. |
 | `parties/payer/type` | Kostenträgerart: `Privat`, `Suva / IV / MV`, `andere Versicherung` oder `EL / Asyl / Sozial`. |
-| `parties/payer` | Kostenträger mit Condent-ID, Name, GLN-Nummer, MWST-Nummer und Anschrift, soweit verfügbar. |
+| `parties/payer` | Kostenträger mit Condent-ID, Name, GLN-Nummer, MWST-Nummer und strukturierter Anschrift (`streetName`, `buildingNumber`, `zipCode`, `city`, `countryCode`), soweit verfügbar. |
 | `treatment/practitioner` | Behandler mit optionaler Condent-ID und Namen. |
 | `treatment/manufacturing` | z. B. `Fertigung: Schweiz` |
 | `treatment/serviceDate` | Leistungsdatum. Der Wert gilt für alle Positionen dieses Belegs und wird im Format `YYYY-MM-DD` ausgegeben. |
