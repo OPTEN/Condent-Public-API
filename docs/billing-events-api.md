@@ -1,5 +1,6 @@
 ---
 title: Billing Events API
+parent: Praxissoftware
 nav_order: 2
 ---
 
@@ -122,6 +123,15 @@ Swagger: https://api-dev.condent.app/swagger/index.html
 |-----|--------------|
 | `patientId` | Interne Condent-ID |
 | `patientReference` | Pat Nr. z.B. aus einem Zaz-System |
+
+### Mögliche Werte für `type`
+
+| Wert | Beschreibung |
+|------|--------------|
+| `CostEstimate` | Kostenvoranschlag |
+| `DeliveryBill` | Lieferschein |
+| `Invoice` | Rechnung |
+| `Credit` | Gutschrift |
 
 ## Event-Typen
 

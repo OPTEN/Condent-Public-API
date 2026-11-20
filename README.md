@@ -10,10 +10,14 @@ Dieses Repository enthält die öffentliche Dokumentation und Beispiele zur Inte
 
 | Dokument | Beschreibung |
 | --- | --- |
-| [API-Anbindung](docs/index.md) | Grundlagen zur Integration: Authentifizierung, Aufträge erstellen, Dateien hochladen und Serverzeit abrufen |
+| [Einführung](docs/index.md) | Welche API für wen, Authentifizierung, Serverzeit und Fehlerantworten |
+| **Praxissoftware** | |
+| [Aufträge an Condent senden](docs/order-create-api.md) | Patienten und Aufträge erstellen, Dateien hochladen |
 | [Billing Events API](docs/billing-events-api.md) | Eventbasierte Schnittstelle zur Abfrage von Änderungen an Leistungen |
-| [Billing Export API](docs/billing-export-api.md) | Schnittstelle zum Export von Leistungsdaten für Abrechnung und Weiterverarbeitung in Drittsystemen |
 | [Rechnungs- und Lieferschein-XML](docs/billing-document-xml.md) | XML-Format für Rechnungen und Lieferscheine im PDF |
+| **Laborsoftware** | |
+| [Order Events API](docs/order-events-api.md) | Eventbasierte Schnittstelle zur Übernahme von Aufträgen und Folgeereignissen (inkl. zur Abrechnung exportierter Aufträge) |
+| [Billing Import API](docs/billing-import-api.md) | Leistungen (Kostenvoranschlag, Rechnung usw.) inkl. Dateien nach Condent zurückspielen |
 
 ## Beispiele
 

@@ -66,6 +66,7 @@
 			tpPatient = new TabPage();
 			tbPatientInsurance = new TextBox();
 			cbPatientCostUnitType = new ComboBox();
+			cbPatientOtherInsuranceType = new ComboBox();
 			lblPatientInsurance = new Label();
 			lblPatientCostUnitType = new Label();
 			cbAdressCountry = new ComboBox();
@@ -459,6 +460,7 @@
 			// 
 			tpPatient.Controls.Add(tbPatientInsurance);
 			tpPatient.Controls.Add(cbPatientCostUnitType);
+			tpPatient.Controls.Add(cbPatientOtherInsuranceType);
 			tpPatient.Controls.Add(lblPatientInsurance);
 			tpPatient.Controls.Add(lblPatientCostUnitType);
 			tpPatient.Controls.Add(cbAdressCountry);
@@ -505,13 +507,26 @@
 			// 
 			// cbPatientCostUnitType
 			// 
+			cbPatientCostUnitType.DropDownStyle = ComboBoxStyle.DropDownList;
 			cbPatientCostUnitType.FormattingEnabled = true;
-			cbPatientCostUnitType.Items.AddRange(new object[] { "Privat", "SUVA / IV / MV", "Krankenkasse", "EL / Asyl / Sozial" });
+			cbPatientCostUnitType.Items.AddRange(new object[] { "Privat", "Suva / IV / MV", "andere Versicherung", "EL / Asyl / Sozial" });
 			cbPatientCostUnitType.Location = new Point(136, 476);
 			cbPatientCostUnitType.Name = "cbPatientCostUnitType";
 			cbPatientCostUnitType.Size = new Size(200, 23);
 			cbPatientCostUnitType.TabIndex = 77;
-			// 
+			cbPatientCostUnitType.SelectedIndexChanged += cbPatientCostUnitType_SelectedIndexChanged;
+			//
+			// cbPatientOtherInsuranceType
+			//
+			cbPatientOtherInsuranceType.DropDownStyle = ComboBoxStyle.DropDownList;
+			cbPatientOtherInsuranceType.FormattingEnabled = true;
+			cbPatientOtherInsuranceType.Items.AddRange(new object[] { "Unfall (UVG)", "Krankheit (KVG)" });
+			cbPatientOtherInsuranceType.Location = new Point(342, 476);
+			cbPatientOtherInsuranceType.Name = "cbPatientOtherInsuranceType";
+			cbPatientOtherInsuranceType.Size = new Size(150, 23);
+			cbPatientOtherInsuranceType.TabIndex = 78;
+			cbPatientOtherInsuranceType.Visible = false;
+			//
 			// lblPatientInsurance
 			// 
 			lblPatientInsurance.AutoSize = true;
@@ -855,6 +870,7 @@
 		private TabControl tcDefault;
 		private TextBox tbPatientInsurance;
 		private ComboBox cbPatientCostUnitType;
+		private ComboBox cbPatientOtherInsuranceType;
 		private Label lblPatientInsurance;
 		private Label lblPatientCostUnitType;
 		private ComboBox cbOrderScanSentVia;

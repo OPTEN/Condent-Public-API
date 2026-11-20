@@ -1,6 +1,7 @@
 ---
 title: Rechnungs- und Lieferschein-XML
-nav_order: 4
+parent: Praxissoftware
+nav_order: 3
 ---
 
 # Lieferschein-/Rechnungs-XML im PDF
