@@ -40,7 +40,7 @@ Scheme, host und path müssen in **Kleinbuchstaben** sein! Method ist in **Gross
 {: .note }
 Auch **leere Strings** (z.B. bei fehlendem querystring oder body) müssen im `sign` String enthalten sein.
 
-Details und Beispiele finden Sie in der [Authentifizierungs-Dokumentation](./index.md#x-condent-sign-generieren-sign-v2).
+Details und Beispiele stehen in der [Authentifizierungs-Dokumentation](./index.md#x-condent-sign-generieren-sign-v2).
 
 ## Konzept
 
@@ -50,7 +50,7 @@ Das Event-System arbeitet mit einem **Cursor-Prinzip**:
    Wenn kein `cursor` übergeben wird, liefert die API die erste Ergebnisseite gemäss dem definierten `limit`. So kann die initiale Verarbeitung oder Synchronisation gestartet werden.
 
 2. **Folgende Aufrufe**  
-   Mit dem `nextCursor` aus der vorherigen Antwort erhalten Sie die jeweils nächsten neuen Events ab der zuletzt verarbeiteten Position.
+   Mit dem `nextCursor` aus der vorherigen Antwort liefert die API die jeweils nächsten neuen Events ab der zuletzt verarbeiteten Position.
 
 `nextCursor` muss vom Client gespeichert und bei der nächsten Anfrage wieder mitgesendet werden.
 
@@ -182,6 +182,6 @@ GET /v2/billing/event?cursor=def456%3D%3D&limit=100
 ## Hinweise
 
 - Bei `Deleted`-Events kann `data` leer sein (`null`)
-- Speichern Sie den `nextCursor` persistent, um nach einem Neustart an der letzten Position fortfahren zu können
+- Den `nextCursor` persistent speichern, um nach einem Neustart an der letzten Position fortfahren zu können
 - Die `documents`-Liste kann leer sein, wenn keine Dokumente vorhanden sind
 - Falls der `cursor` Base64-codiert ist, muss er beim Übergeben als Query-Parameter korrekt URL-encoded werden

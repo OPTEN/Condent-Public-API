@@ -6,7 +6,7 @@ has_children: true
 
 # Laborsoftware
 
-Diese APIs verwendet die Software eines Labors, z.B. ein ERP. Sie benötigen einen [Labor-Schlüssel](./index.md#labor-schlüssel).
+Diese APIs verwendet die Software eines Labors, z.B. ein ERP. Dafür wird ein [Labor-Schlüssel](./index.md#labor-schlüssel) benötigt.
 
 | Dokument | Beschreibung |
 | --- | --- |

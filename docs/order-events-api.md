@@ -11,21 +11,21 @@ Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
 
 ## Übersicht
 
-Über die Order Events API kann das System eines Labors (z.B. ein ERP) Aufträge aus Condent automatisch übernehmen und weiterbearbeiten. Die Daten fliessen **von Condent in Ihr System**.
+Über die Order Events API kann das System eines Labors (z.B. ein ERP) Aufträge aus Condent automatisch übernehmen und weiterbearbeiten. Die Daten fliessen **von Condent in die Laborsoftware**.
 
-Ihr System fragt einen Event-Feed ab und erhält:
+Die Laborsoftware fragt einen Event-Feed ab und erhält:
 
-| Ereignis in Condent | Event-Typ | Was Ihr System erhält |
+| Ereignis in Condent | Event-Typ | Was die Laborsoftware erhält |
 |---------------------|-----------|-----------------------|
 | Ein neuer Auftrag wird erfasst | `OrderCreated` | Den Auftrag mit allen Auftragsdaten und einer Liste der Dateien |
 | Der Kunde löscht den Auftrag (innerhalb der ersten Stunde möglich) | `OrderDeleted` | Eine Löschmeldung zum bereits übernommenen Auftrag |
-| Der Kunde lädt weitere Dateien hoch | `FilesAdded` | Die neuen Dateien, dem bestehenden Auftrag zugeordnet |
+| Der Kunde lädt weitere Dateien hoch | `MediaAdded` | Die neuen Dateien, dem bestehenden Auftrag zugeordnet |
 | Der Kunde schreibt einen Kommentar | `CommentAdded` | Kommentartext, Verfasser und Zeitpunkt |
 | Der Kunde stellt eine Terminänderungsanfrage | `AppointmentChangeRequested` | Die Anfrage mit dem gewünschten Termin. Dies ist **keine** bestätigte Terminänderung. |
 | Auftragsdaten werden geändert (z.B. Beschreibung, Farbe, Termine, Status) | `OrderUpdated` | Den vollständigen, aktuellen Auftrag |
 | Das Labor exportiert den Auftrag zur Abrechnung | `OrderExported` | Den vollständigen Auftrag |
 
-Sie müssen nicht alle Event-Typen verarbeiten. Mit dem Parameter [`types`](#parameter) erhalten Sie nur die Events, die Sie benötigen. Ein Abrechnungssystem fragt z.B. nur `OrderExported` ab.
+Nicht alle Event-Typen müssen verarbeitet werden. Mit dem Parameter [`types`](#parameter) liefert die API nur die benötigten Events. Ein Abrechnungssystem fragt z.B. nur `OrderExported` ab.
 
 ### Auftragsarten
 
@@ -37,12 +37,12 @@ Der Feed enthält diese Arten von Aufträgen. Die Art steht im Feld `type` des A
 | `Production` | Produktionsauftrag |
 | `Quote` | Offerte |
 
-Notizen, Dokumente und Leistungen (Lieferscheine, Rechnungen usw.) sind nicht Teil dieses Feeds. Änderungen an Leistungen erhalten Sie über die [Billing Events API](./billing-events-api.md).
+Notizen, Dokumente und Leistungen (Lieferscheine, Rechnungen usw.) sind nicht Teil dieses Feeds. Änderungen an Leistungen liefert die [Billing Events API](./billing-events-api.md).
 
-Dateien (Scans, Bilder, PDFs) sind nicht in den Events eingebettet. Jedes Event listet die Dateien mit einer Download-URL auf; Ihr System lädt sie separat herunter.
+Dateien (Scans, Bilder, PDFs) sind nicht in den Events eingebettet. Jedes Event listet die Dateien mit einer Download-URL auf; die Laborsoftware lädt sie separat herunter.
 
 {: .note }
-Leistungen wie Kostenvoranschläge, Rechnungen oder Lieferscheine spielen Sie über die [Billing Import API](./billing-import-api.md) nach Condent zurück.
+Leistungen wie Kostenvoranschläge, Rechnungen oder Lieferscheine werden über die [Billing Import API](./billing-import-api.md) nach Condent zurückgespielt.
 
 ## Authentifizierung (Sign V2)
 
@@ -71,7 +71,7 @@ Scheme, host und path müssen in **Kleinbuchstaben** sein! Method ist in **Gross
 {: .note }
 Auch **leere Strings** (z.B. bei fehlendem querystring oder body) müssen im `sign` String enthalten sein.
 
-Details und Beispiele finden Sie in der [Authentifizierungs-Dokumentation](./index.md#x-condent-sign-generieren-sign-v2).
+Details und Beispiele stehen in der [Authentifizierungs-Dokumentation](./index.md#x-condent-sign-generieren-sign-v2).
 
 ## Konzept
 
@@ -81,19 +81,19 @@ Der Feed arbeitet mit demselben **Cursor-Prinzip** wie die [Billing Events API](
    Ohne `cursor` liefert die API die erste Ergebnisseite gemäss `limit`.
 
 2. **Folgende Aufrufe**  
-   Mit dem `nextCursor` aus der vorherigen Antwort erhalten Sie die nächsten Events ab der zuletzt verarbeiteten Position.
+   Mit dem `nextCursor` aus der vorherigen Antwort liefert die API die nächsten Events ab der zuletzt verarbeiteten Position.
 
-Speichern Sie `nextCursor` persistent und erst, nachdem Sie die Events dieser Seite verarbeitet haben. Schlägt die Verarbeitung fehl, rufen Sie die API erneut mit dem vorherigen Cursor auf: Sie erhalten dieselben Events nochmals, es geht nichts verloren.
+Den `nextCursor` persistent speichern, und zwar erst, nachdem die Events dieser Seite verarbeitet sind. Schlägt die Verarbeitung fehl, wird die API erneut mit dem vorherigen Cursor aufgerufen und liefert dieselben Events nochmals; es geht nichts verloren.
 
-Ist der Cursor Base64-codiert, kann er Zeichen wie `=` enthalten. Übertragen Sie ihn **URL-encoded** (z.B. `=` → `%3D`).
+Ist der Cursor Base64-codiert, kann er Zeichen wie `=` enthalten. Er muss **URL-encoded** übertragen werden (z.B. `=` → `%3D`).
 
 ### Auftrags- und Event-IDs
 
-- `key` (GUID) identifiziert einen Auftrag in Condent und ändert sich nie. Damit ordnen Sie jedes Event dem richtigen Auftrag in Ihrem System zu.
-- `eventId` identifiziert ein Event. Dasselbe Event kann mehrfach geliefert werden (z.B. nach einem erneuten Abruf mit einem älteren Cursor). Verarbeiten Sie jede `eventId` nur einmal.
+- `key` (GUID) identifiziert einen Auftrag in Condent und ändert sich nie. Damit lässt sich jedes Event dem richtigen Auftrag in der Laborsoftware zuordnen.
+- `eventId` identifiziert ein Event. Dasselbe Event kann mehrfach geliefert werden (z.B. nach einem erneuten Abruf mit einem älteren Cursor). Jede `eventId` nur einmal verarbeiten.
 
 {: .highlight }
-Erstellen Sie einen Auftrag in Ihrem System **nur einmal pro `key`**. Trifft ein `OrderCreated`-Event für einen bereits bekannten `key` ein, ignorieren Sie es.
+Einen Auftrag in der Laborsoftware **nur einmal pro `key`** erstellen. Trifft ein `OrderCreated`-Event für einen bereits bekannten `key` ein, wird es ignoriert.
 
 ## Events abfragen
 
@@ -113,7 +113,7 @@ Swagger: https://api-dev.condent.app/swagger/index.html
 | `limit` | int | Nein | Maximale Anzahl Events pro Anfrage (Standard: 50, Maximum: 200). |
 | `types` | string | Nein | Kommagetrennte Liste von [Event-Typen](#event-typen), z.B. `OrderExported` oder `OrderCreated,OrderDeleted`. Ohne diesen Parameter werden alle Event-Typen geliefert. |
 
-Der Cursor ist unabhängig vom Filter. Sie können `types` jederzeit ändern und mit Ihrem bisherigen Cursor weiterfahren; ab dieser Position erhalten Sie dann die Events gemäss dem neuen Filter.
+Der Cursor ist unabhängig vom Filter. `types` kann jederzeit geändert werden, der bisherige Cursor bleibt gültig; ab dieser Position liefert die API dann die Events gemäss dem neuen Filter.
 
 ### Antwortstruktur
 
@@ -151,7 +151,7 @@ Jedes Event hat denselben Rahmen. Der Inhalt von `data` hängt vom `eventType` a
 |-----|--------------|
 | `OrderCreated` | Ein neuer Auftrag wurde erfasst |
 | `OrderDeleted` | Der Auftrag wurde in Condent gelöscht |
-| `FilesAdded` | Zu einem bestehenden Auftrag wurden Dateien hinzugefügt |
+| `MediaAdded` | Zu einem bestehenden Auftrag wurden Dateien hinzugefügt |
 | `CommentAdded` | Zum Auftrag wurde ein Kommentar geschrieben |
 | `AppointmentChangeRequested` | Der Kunde wünscht einen anderen Termin |
 | `OrderUpdated` | Auftragsdaten wurden geändert |
@@ -239,19 +239,19 @@ Enthält den vollständigen Auftrag. Die Felder entsprechen den Auftragsfeldern 
 | `type` | Art des Auftrags, siehe [Auftragsarten](#auftragsarten) |
 | `status` | Status des Auftrags in Condent, z.B. `New`, `Processing`, `Delivered`. Änderungen werden mit `OrderUpdated` gemeldet. |
 | `customer.id` | Interne Condent-ID des Kunden (Praxis, Zahl) |
-| `customer.reference` | Kundennummer des Labors, z.B. aus Ihrem System. Kann leer sein, wenn sie in Condent nicht gepflegt ist. |
+| `customer.reference` | Kundennummer des Labors, z.B. aus der Laborsoftware. Kann leer sein, wenn sie in Condent nicht gepflegt ist. |
 | `customerEmployee` | Behandler, der den Auftrag erfasst hat (kann leer sein) |
 | `patient.id` | Interne Condent-ID des Patienten (Zahl, wie `patientId` in der [Billing Events API](./billing-events-api.md#antwortstruktur)) |
 | `patient.reference` | Pat Nr. aus der Praxissoftware (kann leer sein) |
 | `appointments` | Termine des Auftrags (z.B. Einprobe, Lieferung). Der `key` wird bei `AppointmentChangeRequested` verwendet. |
-| `files` | Dateien zum Zeitpunkt der Erfassung. Weitere Dateien folgen mit `FilesAdded`. |
+| `files` | Dateien zum Zeitpunkt der Erfassung. Weitere Dateien folgen mit `MediaAdded`. |
 | `url` | Link zum Auftrag in Condent |
 
 Mögliche Werte für `salutation`: siehe [`POST /v1/order`](./order-create-api.md#mögliche-werte-für-patientsalutation).
 
 ### OrderDeleted
 
-Der Kunde kann einen Auftrag innerhalb der ersten Stunde nach der Erfassung löschen. Auch das Labor kann Aufträge löschen. Löschen oder markieren Sie den Auftrag in Ihrem System, je nachdem, wie weit er bereits bearbeitet wurde.
+Der Kunde kann einen Auftrag innerhalb der ersten Stunde nach der Erfassung löschen. Auch das Labor kann Aufträge löschen. Je nachdem, wie weit der Auftrag bereits bearbeitet wurde, wird er in der Laborsoftware gelöscht oder als gelöscht markiert.
 
 ```json
 {
@@ -275,14 +275,14 @@ Der Kunde kann einen Auftrag innerhalb der ersten Stunde nach der Erfassung lös
 
 Nach `OrderDeleted` werden für diesen Auftrag keine weiteren Events gesendet, und seine Dateien können nicht mehr heruntergeladen werden.
 
-### FilesAdded
+### MediaAdded
 
 Wird gesendet, wenn der Kunde zu einem bestehenden Auftrag weitere Dateien hochlädt. Ein Event enthält alle Dateien eines Uploads.
 
 ```json
 {
   "eventId": 67892,
-  "eventType": "FilesAdded",
+  "eventType": "MediaAdded",
   "timestamp": "2026-11-20T10:05:00Z",
   "orderKey": "770e8400-e29b-41d4-a716-446655440000",
   "data": {
@@ -338,7 +338,7 @@ Wird gesendet, wenn der Kunde zu einem bestehenden Auftrag weitere Dateien hochl
 Der Kunde wünscht einen anderen Termin. Das Labor muss die Anfrage weiterhin in Condent annehmen oder ablehnen.
 
 {: .highlight }
-Dies ist eine **Anfrage**, keine bestätigte Änderung. Überschreiben Sie den vereinbarten Termin in Ihrem System nicht.
+Dies ist eine **Anfrage**, keine bestätigte Änderung. Der vereinbarte Termin in der Laborsoftware darf nicht überschrieben werden.
 
 ```json
 {
@@ -377,7 +377,7 @@ Wird gesendet, wenn sich Daten des Auftrags ändern, z.B.:
 - Termine (direkt geändert, hinzugefügt oder entfernt, auch wenn das Labor eine Terminänderungsanfrage annimmt oder ablehnt)
 - Status des Auftrags
 
-`data` enthält den vollständigen, aktuellen Auftrag im selben Format wie bei [`OrderCreated`](#ordercreated). Übernehmen Sie die Felder, die sich in Ihrem System ändern dürfen. Ein Event wird nur gesendet, wenn sich tatsächlich etwas geändert hat; mehrere Änderungen kurz nacheinander können in einem Event zusammengefasst werden.
+`data` enthält den vollständigen, aktuellen Auftrag im selben Format wie bei [`OrderCreated`](#ordercreated). Die Laborsoftware übernimmt die Felder, die sich bei ihr ändern dürfen. Ein Event wird nur gesendet, wenn sich tatsächlich etwas geändert hat; mehrere Änderungen kurz nacheinander können in einem Event zusammengefasst werden.
 
 ```json
 {
@@ -395,11 +395,11 @@ Wird gesendet, wenn sich Daten des Auftrags ändern, z.B.:
 ```
 
 {: .note }
-Neue Dateien und Kommentare lösen kein `OrderUpdated` aus, dafür gibt es `FilesAdded` und `CommentAdded`.
+Neue Dateien und Kommentare lösen kein `OrderUpdated` aus, dafür gibt es `MediaAdded` und `CommentAdded`.
 
 ### OrderExported
 
-Das Labor hat den Auftrag in Condent zur Abrechnung markiert. Ihr System kann daraus z.B. einen Kostenvoranschlag oder eine Rechnung erstellen und diese über die [Billing Import API](./billing-import-api.md) zurückspielen.
+Das Labor hat den Auftrag in Condent zur Abrechnung markiert. Die Laborsoftware kann daraus z.B. einen Kostenvoranschlag oder eine Rechnung erstellen und diese über die [Billing Import API](./billing-import-api.md) zurückspielen.
 
 Exportiert werden immer Aufträge, nie Leistungen. `data` enthält den Auftrag im selben Format wie bei [`OrderCreated`](#ordercreated):
 
@@ -421,7 +421,7 @@ Ein Auftrag kann mehrmals exportiert werden. Jeder Export erzeugt ein neues `Ord
 
 ## Auftrag abfragen
 
-Liefert den aktuellen Stand eines Auftrags im selben Format wie `data` bei `OrderCreated`. Damit können Sie einen einzelnen Auftrag neu synchronisieren, z.B. nach einem Fehler in Ihrem System.
+Liefert den aktuellen Stand eines Auftrags im selben Format wie `data` bei `OrderCreated`. Damit lässt sich ein einzelner Auftrag neu synchronisieren, z.B. nach einem Fehler in der Laborsoftware.
 
 ### Endpunkt
 
@@ -436,7 +436,7 @@ GET /v2/order/{key}
 
 ## Dateien herunterladen
 
-Verwenden Sie die `url` einer Datei aus den Events.
+Dafür wird die `url` einer Datei aus den Events verwendet.
 
 ```http
 GET /v2/order/{key}/file/{fileKey}
@@ -488,8 +488,8 @@ Siehe [Fehlerantworten](./index.md#fehlerantworten).
 
 ## Hinweise
 
-- Die Events eines Labors werden in der Reihenfolge geliefert, in der sie entstanden sind. Verarbeiten Sie sie in dieser Reihenfolge.
-- Events werden 90 Tage aufbewahrt. Fragen Sie mindestens einmal täglich ab, damit keine Events verloren gehen.
-- Speichern Sie den `nextCursor` persistent, um nach einem Neustart an der letzten Position fortfahren zu können.
+- Die Events eines Labors werden in der Reihenfolge geliefert, in der sie entstanden sind, und sind in dieser Reihenfolge zu verarbeiten.
+- Events werden 90 Tage aufbewahrt. Der Feed sollte mindestens einmal täglich abgefragt werden, damit keine Events verloren gehen.
+- Den `nextCursor` persistent speichern, um nach einem Neustart an der letzten Position fortfahren zu können.
 - Geliefert werden nur Events ab Aktivierung der Anbindung für das Labor. Bestehende Aufträge werden nicht übertragen.
-- Die `type`-Felder (`Customer` / `Lab`) zeigen, wer ein Event ausgelöst hat.
+- Bei `OrderDeleted`, `MediaAdded`, `CommentAdded` und `AppointmentChangeRequested` zeigt `deletedBy.type`, `addedBy.type`, `author.type` bzw. `requestedBy.type`, ob die Praxis (`Customer`) oder das Labor (`Lab`) das Event ausgelöst hat. Nicht zu verwechseln mit `type` des Auftrags (`Order`, `Production`, `Quote`).

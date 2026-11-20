@@ -6,7 +6,7 @@ nav_order: 1
 
 # Aufträge an Condent senden
 
-Mit diesen Endpunkten schickt eine Praxissoftware Patienten und Aufträge inkl. Dateien an Condent. Sie benötigen dafür einen [Praxis-Schlüssel](./index.md#praxis-schlüssel). Wie Requests signiert werden, steht in der [Einführung](./index.md#authentifizierung).
+Mit diesen Endpunkten schickt eine Praxissoftware Patienten und Aufträge inkl. Dateien an Condent. Dafür wird ein [Praxis-Schlüssel](./index.md#praxis-schlüssel) benötigt. Wie Requests signiert werden, steht in der [Einführung](./index.md#authentifizierung).
 
 {: .new }
 Änderungen: 27.02.26
@@ -35,7 +35,7 @@ Für Zahlungsüberweisungen sowie die Generierung von QR-Rechnungen wird künfti
 
 ## Patient mit oder ohne Auftragsdaten an Condent schicken
 
-Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.condent.app/swagger/index.html
+Eine vollständige Dokumentation der API gibt es hier: https://api-dev.condent.app/swagger/index.html
 
 #### HTTP Request
 
@@ -53,7 +53,7 @@ Eine vollständige Dokumentation der API finden Sie hier: https://api-dev.conden
 | scanSentVia | Nein        | string | Scan versendet via. Mögliche Werte: `DSCore`, `ThreeShape`, `ITero`, `Shining3D`, `Medit`, `StraumannAxs`, `Other` |
 | trackingNumber | Nein        | string | Trackingnummer (z.B. Post) des Auftrags |
 | patient | **Ja**        | object | Patientendaten |
-| patient.reference | **Ja**        | string | Eindeutige Patientennummer Ihrer Praxissoftware |
+| patient.reference | **Ja**        | string | Eindeutige Patientennummer der Praxissoftware |
 | patient.salutation | Nein        | string | Anrede des Patienten. Mögliche Werte siehe unten. |
 | patient.firstName | **Ja**        | string | Vorname des Patienten |
 | patient.lastName | **Ja**        | string | Nachname des Patienten |
@@ -155,7 +155,7 @@ Content-Type:  application/json
 
 ## Dateien hochladen
 
-Sie müssen zuerst eine [Order](#patient-mit-oder-ohne-auftragsdaten-an-condent-schicken) erstellen, um Dateien hochzuladen. Den `UploadToken` erhalten Sie im Response der Order.
+Um Dateien hochzuladen, muss zuerst eine [Order](#patient-mit-oder-ohne-auftragsdaten-an-condent-schicken) erstellt werden. Der `UploadToken` steht im Response der Order.
 
 Aktuell gelten folgende Beschränkungen:
 - Grösse bis zu maximal 100 MB
@@ -163,7 +163,7 @@ Aktuell gelten folgende Beschränkungen:
 
 (Sofern möglich, werden wir Dateien wie z.B. Bilder komprimieren.)
 
-Dateien müssen einzeln geschickt werden, dies um Timeouts zu verhindern (wenn z.B. sehr viele, sehr grosse Dateien geschickt werden). Wir empfehlen, dass die Requests parallel geschickt werden (ein Beispiel in C# finden Sie [hier](https://github.com/OPTEN/Condent-Public-API/blob/main/examples/Opten.Condent.DentistApp/CondentAppForm.cs)).
+Dateien müssen einzeln geschickt werden, dies um Timeouts zu verhindern (wenn z.B. sehr viele, sehr grosse Dateien geschickt werden). Wir empfehlen, dass die Requests parallel geschickt werden (ein Beispiel in C# gibt es [hier](https://github.com/OPTEN/Condent-Public-API/blob/main/examples/Opten.Condent.DentistApp/CondentAppForm.cs)).
 
 Wenn es sehr viele Dateien sind, kann auch ein ZIP-File geschickt werden.
 
@@ -175,7 +175,7 @@ Grundsätzlich kann der Auftrag auf Condent erfasst werden, auch wenn einzelne D
 
 #### Request Body
 
-Sie müssen die Datei als multipart/form-data schicken.
+Die Datei muss als multipart/form-data geschickt werden.
 
 #### Request Beispiel
 

@@ -14,7 +14,7 @@ Swagger: https://api-dev.condent.app/swagger/index.html
 
 ## Welche API für wen?
 
-| Ihre Software | APIs | Schlüssel |
+| Software | APIs | Schlüssel |
 | --- | --- | --- |
 | [Praxissoftware](./practice-software.md) | [Aufträge an Condent senden](./order-create-api.md), [Billing Events API](./billing-events-api.md), [Rechnungs- und Lieferschein-XML](./billing-document-xml.md) | [Praxis-Schlüssel](#praxis-schlüssel) |
 | [Laborsoftware](./lab-software.md) (z.B. ERP) | [Order Events API](./order-events-api.md), [Billing Import API](./billing-import-api.md) | [Labor-Schlüssel](#labor-schlüssel) |
@@ -25,28 +25,28 @@ Authentifizierung, Serverzeit und Fehlerantworten sind für alle APIs gleich und
 
 Die folgenden HTTP-Header müssen für die Authentifizierung verwendet werden:
 
- - `X-CONDENT-API-KEY`: API-Schlüssel der Praxis oder des Labors (siehe unten), in Ihrer Software gespeichert
+ - `X-CONDENT-API-KEY`: API-Schlüssel der Praxis oder des Labors (siehe unten), in der Software gespeichert
  - `X-CONDENT-TIMESTAMP`: UTC Zeitstempel in Millisekunden
  - `X-CONDENT-SIGN`: Eine aus den Request-Parametern abgeleitete Signatur
 
-Für die Signatur benötigen Sie zusätzlich einen `SecretKey`, den Sie von uns erhalten (support@condent.ch).
+Für die Signatur wird zusätzlich ein `SecretKey` benötigt, erhältlich bei support@condent.ch.
 
 ### Praxis-Schlüssel
 
-Der Praxis-Schlüssel wird vom Zahnarzt in Condent erstellt und in Ihrer Praxissoftware gespeichert. Er gibt Zugriff auf die Daten dieser Praxis.
+Der Praxis-Schlüssel wird vom Zahnarzt in Condent erstellt und in der Praxissoftware gespeichert. Er gibt Zugriff auf die Daten dieser Praxis.
 
 ### Labor-Schlüssel
 
 Die [Order Events API](./order-events-api.md) und die [Billing Import API](./billing-import-api.md) werden vom Labor bzw. von dessen Software (z.B. einem ERP) verwendet. Dafür wird ein API-Schlüssel **pro Labor** benötigt, nicht ein Schlüssel des Zahnarztes. Ein Labor-Schlüssel gibt nur Zugriff auf Aufträge, Events und Dateien des eigenen Labors.
 
-Labor-Schlüssel und `SecretKey` erhalten Sie auf Anfrage bei support@condent.ch. Die Signatur funktioniert gleich wie unten beschrieben (Sign V2).
+Labor-Schlüssel und `SecretKey` gibt es auf Anfrage bei support@condent.ch. Die Signatur funktioniert gleich wie unten beschrieben (Sign V2).
 
 {: .new }
 Änderungen: 18.05.26 - **Sign V2**
 
 ### X-CONDENT-SIGN generieren (Sign V2)
 
-Um eine Signatur zu generieren, benötigen sie einen `SecretKey`welchen Sie von uns erhalten (support@condent.ch).
+Um eine Signatur zu generieren, wird der `SecretKey` benötigt (erhältlich bei support@condent.ch).
 
 Die Signatur setzt sich wie folgt zusammen:
 
@@ -121,7 +121,7 @@ api.condent.app
 1735034400000
 
 ```
-(Beachten Sie die leere Zeile am Ende für den leeren Body)
+(Die leere Zeile am Ende steht für den leeren Body.)
 
 **GET Request mit Cursor:**
 ```
@@ -161,14 +161,14 @@ scan.stl
 Weitere Beispiele finden sie unter [examples](https://github.com/OPTEN/Condent-Public-API/tree/main/examples).
 
 Wichtig ist, dass `timestamp`nicht weniger oder mehr als 15 Sekunden Unterschied zur Serverzeit von Condent hat.
-Falls Ihre Software z.B. eine auf dem Windows installierte Software ist, müssen Sie berücksichtigen, dass der Benutzer die Uhrzeit auf dem Computer (fälschlicherweise) ändern kann. Sie können die aktuelle Serverzeit von Condent [abfragen](#serverzeit).
+Läuft die Software z.B. lokal unter Windows, kann der Benutzer die Uhrzeit auf dem Computer (fälschlicherweise) ändern. Die aktuelle Serverzeit von Condent lässt sich deshalb [abfragen](#serverzeit).
 
 ---
 
 ### X-CONDENT-SIGN generieren (Sign V1 - Legacy)
 
 {: .warning }
-Diese Methode wird nicht mehr empfohlen. Bitte verwenden Sie Sign V2 für alle neuen Implementierungen.
+Diese Methode wird nicht mehr empfohlen. Alle neuen Implementierungen sollten Sign V2 verwenden.
 
 **Sign V1** verwendet eine einfachere Signatur-Methode:
 
@@ -229,8 +229,8 @@ Bei einem Fehler antwortet die API mit einem HTTP-Statuscode und einer Liste von
 |------------|-----------|
 | `400 Bad Request` | Ungültige Anfrage, z.B. fehlende Pflichtfelder oder ein `limit` ausserhalb des erlaubten Bereichs |
 | `401 Unauthorized` | Authentifizierung fehlgeschlagen: ungültiger API-Schlüssel, ungültige Signatur oder `X-CONDENT-TIMESTAMP` mehr als 15 Sekunden von der [Serverzeit](#serverzeit) entfernt |
-| `404 Not Found` | Die angefragte Ressource existiert nicht oder gehört nicht zu Ihrem API-Schlüssel |
-| `500 Internal Server Error` | Fehler bei Condent. Wiederholen Sie die Anfrage später. |
+| `404 Not Found` | Die angefragte Ressource existiert nicht oder gehört nicht zum verwendeten API-Schlüssel |
+| `500 Internal Server Error` | Fehler bei Condent. Die Anfrage später wiederholen. |
 
 {: .note }
-Die Meldungen in `messages` sind für Entwickler:innen gedacht und können sich ändern. Werten Sie in Ihrer Software den Statuscode aus, nicht den Text.
+Die Meldungen in `messages` sind für Entwickler:innen gedacht und können sich ändern. Ausgewertet werden sollte der Statuscode, nicht der Text.

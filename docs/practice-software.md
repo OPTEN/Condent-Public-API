@@ -6,7 +6,7 @@ has_children: true
 
 # Praxissoftware
 
-Diese APIs verwendet eine Praxissoftware (Software des Zahnarztes). Sie benötigen einen [Praxis-Schlüssel](./index.md#praxis-schlüssel).
+Diese APIs verwendet eine Praxissoftware (Software des Zahnarztes). Dafür wird ein [Praxis-Schlüssel](./index.md#praxis-schlüssel) benötigt.
 
 | Dokument | Beschreibung |
 | --- | --- |

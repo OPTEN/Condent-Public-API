@@ -21,7 +21,7 @@ Dieses Repository enthält die öffentliche Dokumentation und Beispiele zur Inte
 
 ## Beispiele
 
-Unter [examples/](examples/) finden Sie eine C#-Beispielapplikation, die die wichtigsten API-Aufrufe demonstriert.
+Unter [examples/](examples/) liegt eine C#-Beispielapplikation, die die wichtigsten API-Aufrufe demonstriert.
 
 ## API Endpoints
 
@@ -32,4 +32,4 @@ Unter [examples/](examples/) finden Sie eine C#-Beispielapplikation, die die wic
 
 ## Support
 
-Bei Fragen oder Problemen wenden Sie sich an: support@condent.ch
+Bei Fragen oder Problemen: support@condent.ch
