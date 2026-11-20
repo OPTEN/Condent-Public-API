@@ -4,6 +4,8 @@ parent: Laborsoftware
 nav_order: 1
 ---
 
+# Order Events API
+
 {: .warning }
 Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
 
@@ -21,7 +23,7 @@ Ihr System fragt einen Event-Feed ab und erhält:
 | Der Kunde schreibt einen Kommentar | `CommentAdded` | Kommentartext, Verfasser und Zeitpunkt |
 | Der Kunde stellt eine Terminänderungsanfrage | `AppointmentChangeRequested` | Die Anfrage mit dem gewünschten Termin. Dies ist **keine** bestätigte Terminänderung. |
 | Auftragsdaten werden geändert (z.B. Beschreibung, Farbe, Termine, Status) | `OrderUpdated` | Den vollständigen, aktuellen Auftrag |
-| Das Labor exportiert den Auftrag zur Abrechnung | `OrderExported` | Den Auftrag und die erwartete Leistung (z.B. Kostenvoranschlag oder Rechnung) |
+| Das Labor exportiert den Auftrag zur Abrechnung | `OrderExported` | Den vollständigen Auftrag |
 
 Sie müssen nicht alle Event-Typen verarbeiten. Mit dem Parameter [`types`](#parameter) erhalten Sie nur die Events, die Sie benötigen. Ein Abrechnungssystem fragt z.B. nur `OrderExported` ab.
 
@@ -399,7 +401,7 @@ Neue Dateien und Kommentare lösen kein `OrderUpdated` aus, dafür gibt es `File
 
 Das Labor hat den Auftrag in Condent zur Abrechnung markiert. Ihr System kann daraus z.B. einen Kostenvoranschlag oder eine Rechnung erstellen und diese über die [Billing Import API](./billing-import-api.md) zurückspielen.
 
-`data` enthält den Auftrag im selben Format wie bei [`OrderCreated`](#ordercreated), ergänzt um das Feld `billingType`:
+Exportiert werden immer Aufträge, nie Leistungen. `data` enthält den Auftrag im selben Format wie bei [`OrderCreated`](#ordercreated):
 
 ```json
 {
@@ -410,15 +412,10 @@ Das Labor hat den Auftrag in Condent zur Abrechnung markiert. Ihr System kann da
   "data": {
     "key": "770e8400-e29b-41d4-a716-446655440000",
     "title": "Implantatkrone 46 Ti Base",
-    "billingType": "DeliveryBill",
     "...": "weitere Felder wie bei OrderCreated"
   }
 }
 ```
-
-| Property | Beschreibung |
-|----------|--------------|
-| `billingType` | Typ der erwarteten Leistung (optional), siehe [Leistungstypen](./billing-import-api.md#leistungstypen) |
 
 Ein Auftrag kann mehrmals exportiert werden. Jeder Export erzeugt ein neues `OrderExported`-Event.
 

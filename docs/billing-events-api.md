@@ -4,6 +4,8 @@ parent: Praxissoftware
 nav_order: 2
 ---
 
+# Billing Events API
+
 {: .warning }
 Diese API befindet sich noch in Entwicklung. Änderungen vorbehalten.
 

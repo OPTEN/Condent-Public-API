@@ -3,6 +3,8 @@ title: Billing Export API
 nav_exclude: true
 ---
 
+# Billing Export API
+
 {: .warning }
 Die Billing Export API wird nicht weitergeführt. Bitte verwenden Sie stattdessen die folgenden APIs.
 
